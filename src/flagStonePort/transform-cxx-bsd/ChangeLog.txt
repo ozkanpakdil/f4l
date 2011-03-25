@@ -1,0 +1,286 @@
+2003-03-21
+
+    * Started ChangeLog.
+    * Added FSFontInfo, FSDefineFont and FSDefineText2 classes.
+    * Removed copy constructors when compiler generated version will suffice.
+    * replaced char* with FSString in FSDefineFont2, FSDefineTextField and FSPlaceObject2.
+    * Added documentation for uncommented methods.
+    
+2003-03-26
+
+    * Added FSDefineJPEG2.
+    * Fixed bug in FSBitmapFill where image identifier was not being set.
+    * Separated out FSDefineText2 from FSDefineText. glyphBits() and advanceBits() methods are now private.
+    * float FSInputstream::read(), FSOutputStream::write(double). Changed algorithm to read and write double precision floating point values.
+    
+2003-03-27
+
+    * FSDefineJPEGImage.cpp, FSDefineJPEGImage.h Added imageLength attribute rather than using length.
+    * FSMovie: Added copy constructor, assignment operator, destructor and clone method.
+
+2003-03-28
+
+    * FSDefineImage: Fixed bug in clone().
+    * FSDefineImage: Fixed bug in copy constructor.
+    * FSDefineImage: Removed code that supported uncompressed colour table and image.
+    * FSDefineFont2, FSFontInfo - decodeFromStream(FSInputStream*): fixed bug in decoding font name.
+    * Added FSDefineShape2, FSDefineShape3, FSFrameLabel, FSDefineMovieClip, FSDefineButton, 
+      FSDefineJPEGImage3, FSDefineImage2, FSWith, FSCall, FSTable, FSWaitForFrame2 and 
+      FSSoundStreamBlock classes.
+    * Fixed bug in FSDoAction::setActions() - old actions were not being deleted.
+    
+2003-03-29
+
+    * Added FSSoundStreamHead, FSSoundStreamHead2, FSRegisterCopy, FSNewFunction, FSGotoFrame, 
+      FSGotoLabel, FSGetUrl, FSWaitForFrame, FSSetTarget, FSProtect, FSPathsArePostscript, 
+      FSFree, FSSerialNumber, FSPointer, FSRemoveObject, FSPlaceObject, FSExport, FSImport.
+    
+2003-03-30
+
+    * Added FSMorphSolidLine, FSMorphSolidFill, FSMorphBitmapFill, FSMorphGradient, 
+      FSMorphGradientFill, FSDefineMorphShape. 
+    
+2003-03-31
+
+    * Fixed bug in encoding FSShapeStyle object - length of any styles was not being calculated correctly. 
+    
+2003-04-01
+
+    * Upgraded validation logic in all classes.
+    * Split const Transform::PACKAGE_VERSION into MAJOR_VERSION, MINOR_VERSION and MICRO_VERSION.
+    
+2003-04-02
+
+    * Inlined constructors and accessor methods.
+    * Ranamed name() method on all classes to className().
+    * FSDefineImage, FSDefineImage2: renamed compressedLength to imageLength and compressedData 
+      to image. Updated accessor methods accordingly.
+    * Renamed attributes which contain an identifier to an object from objectId, bitmapId, 
+      etc to identifier. FSButtonColorTransform, FSButton, FSButtonSound, FSPlaceObject, 
+      FSPlaceObject2, FSStartSound, FSRemoveObject, FSFontInfo, FSBitmapFill, FSMorphBitmapFill, FSText.
+    * FSButton: conslidated boolean flags for button states into an int.
+    * FSSoundInfo - renamed to FSSound and added identifier attribute which simplified 
+      FSStartSound and FSButtonSound classes.
+    
+2003-04-04 Stuart MacKay
+
+    * Tidied up sound classes renaming attributes which control how sound is played.
+    
+    * Added constructors and methods to FSPush: FSPush(bool), FSPush(int), FSPush(double), FSPush(FSNull), FSPush(FSVoid), FSPush(char*), FSPush(FSTableIndex), FSPush(FSRegisterIndex), FSPush(int[]), FSPush(char*[]). add(int[]), add(char*[]).
+    
+    * An FSAllocationException is thrown if memory cannot be dynamically allocated.
+    
+    * Added convenience add() methods to all classes that contain FSVectors.
+ 
+2003-04-06 Stuart MacKay
+
+    * changed FSPlaceObject2::ratio attribute to be a float.
+    
+2003-04-07
+
+    * Added the constructor FSCoordTransform(int x, int y)
+    * Overhauled constructors for FSPlaceObject2.
+    * Overhauled documentation for control classes.
+    * Changed name for JPEGTables to JPEGEncodingTable.
+    * Added directive for WIN32 DLLs.
+   
+2003-04-08 Stuart MacKay
+
+    * FSImport and FSExport now support arrays of objects;
+    * fontName ranamed to name in FSDefineFont2 and FSFontInfo
+    * functionName ranamed to name in FSNewFunction.
+    * objectName ranamed to name in FSPlaceObject2.
+    * moved all enums to the classes closest to where they are used.
+    
+2003-04-15
+
+    * Moved the stack based action types into the FSAction class.
+    * Added 
+        FSTable(const char* anArray[], int size)
+        void FSTable::setValues(const char* anArray[], int size) 
+    * FSDefineText, FSDefineText2: Fixed a bug where the identifier was being set to 
+      zero in the constructor.
+
+2003-04-17
+
+    * added FSText(int anIndent, int aBaseline, const FSVector<FSCharacter>& anArray)
+    * removed FSText(int anIdentifier, const FSColor& aColor, int anIndent, int aBaseline, int aHeight); 
+
+2003-04-18
+
+    * Fixed bugs in encoding and decoding FSDefineImage objects.
+    * Changed constructors for FSDefineImage and FSDefineImage2 to support indexed and direct colour images.
+
+2003-04-27
+
+    * added default arguments to methods which get and set coordinates to allow 
+      COORDINATES_ARE_PIXELS flag to be overriden.
+    * added FSLine::setPoint, FSCurve::setControl, FSCurve::setAnchor, FSCurve::setPoints, 
+      FSShapeStyle::setMove, FSBounds:setLower, FSBounds::setUpper, FSBounds::setPoints
+    * changed name of attributes and accessors on FSBounds.
+    
+2003-06-07
+
+    * added FSGetUrl.h to transform.h
+    * streams now support a context attribute that supports conditional encoding.
+    * updated documentation for FSButtonColorTransform.
+    * Event code is now copied in assignment operator.
+    * FSButton
+        Color Transform in constructor is now optional. 
+        Color transform is not encoded when used in an FSDefineButton. 
+        Updated documentation
+    * Restructured FSDefineSound, FSSoundStreamHead and FSSoundStreamHead2.
+    
+2003-06-10
+    
+    * Release 1.0.3
+
+2003-06-11
+
+    * Updated documentation for flag accessor methods.
+    * Updated _USRDLL label in FSTranform.cpp to _WINDLL.
+    * Added #ifdefs around extern declarations for FSVectors.
+    
+2003-07-11
+
+    * Updated FSStream to test for end of stream and move to end of the stream.
+    * Added convenience method to FSInputStream to read in strings.
+    * Split PCM format to support big-endian and little-endian byte-order versions.
+    * FSSoundStreamHead2: Correct tag value now used.
+    * Updated install makefile to freshen Library table of contents.
+
+2003-07-18
+
+    * Release 1.0.4
+    
+2003-07-25
+
+    * FSDefineJPEGImage2 and FSDefineJPEGImage3 now write SOI and EOI JPEG tags in correct order.
+    
+2003-08-20
+
+    * FSSoundStreamHead: fixed bug in writing number of channels and sample size.
+    * Fixed errors in documentation.
+
+2003-10-06
+
+    * FSDefineFont2 now encodes layout information.
+    * DLL Directive now works when using DEVELOPER_EDITION with other DLLs.
+    * Fixed bug where color transform was not being decoded from FSPlaceObject.
+    * Fixed bug where coordinate transform was not being decoded from FSPlaceObject2.
+    * Fixed bug where imageLength was not being set when decoded in FSDefineImage, FSDefineImage2.
+    * FSColorTransform: fixed bug in isUnityTransform().
+
+2003-10-07
+
+    * Release 1.0.5
+    
+2004-04-08
+
+    * Moved code base from Transform 1.0.5 to Transform SWF5. Prepared code for generating
+      Eval, SWF5, SWF6 and SWF7 Editions.
+    * Restructured event logging.
+    * Renamed FSEventListener to FSMovieListener.
+    * Renamed FSButtonRecord to FSButton.
+    * Renamed FSText to FSText.
+    * Renamed FSUnknownTag to FSUnknownObject.
+    * In FSMovieEvent consolidated eventType enum values Validation, Underflow, Overflow to Error.
+    * In FSMovieEvent renamed eventType enums BeginObject to Begin and EndObject to End.
+    * In FSMovieEvent removed attribute and message attributes.
+    * Renamed FSSound::PCMB to FSSound::NATIVE_PCM and FSSound::PCML to FSSound::PCM.
+    
+2004-04-09
+
+    * Added zlib compression library and upgraded FSMovie to handle compressed files.
+
+2004-04-12
+
+    * Removed FSTransform flags: COORDINATES_ARE_PIXELS, FONT_SIZE_IS_PIXELS, 
+      LINE_WIDTHS_ARE_PIXELS and LINE_WIDTHS_ARE_PIXELS.
+    * Added compiler directives for each edition.
+    * Project now uses CMake.
+    * Removed FSEndShape - now implicitly encoded and decoded by FSShape.
+    * Removed FSEnd - now implicitly encoded and decoded by FSMovie and FSDefineMovieClip.
+
+2004-04-13
+
+    * Simplified FSString to provide limited support for different character set encodings.
+    * Changed FSStream attributes from separate attributes into an array of ints.
+
+2004-04-23
+
+    * Completed Build 1.
+
+2004-04-24
+
+    * Added latency attribute to FSSoundStreamHead and FSSoundStreamHead2.
+    * Added small font attribute to FSFontInfo and FSDefineFont2.
+    * FSCoordTransform: Replaced class methods for different types of transform with object methods.
+    * Move enum defining different font encodings into FSText.
+
+2004-04-26
+
+    * Fixed bug in FSText when decoding Flash Version 6 and later files.
+    
+2004-05-04
+
+    * Released Build 3
+    
+2004-05-25
+
+    * Added typedef unsigned char byte;
+    * Changed API on classes containing data to use byte* rather than char*: affects 
+      FSDefineImage, FSDefineImage2, FSDefineJPEGImage, FSDefineJPEGImage2, FSDefineJPEGImage3, 
+      FSDefineSound, FSSoundStreamBlock, FSUnknownObject, FSUnknownAction.
+ 
+2004-05-27
+
+    * Moved utilities functions out to the respective classes.
+    * Signficantly boosted encoding performance of FSDefineFont2.
+    * Improved error messages with exceptions and removed FSError, FSAssertion.
+    * Removed FSMovie::getMovieLength() - length information is returned by the 
+      encode(size_t& size) method.
+    
+2004-05-31
+
+    * Fixed bug: FSShape now writes out end of shape marker.
+
+2004-06-01
+
+    * Fixed ANT build file - previous version was for Java.
+
+2004-06-02
+
+    * Fixed bug in FSDefineMorphShape - type for decoded object now set correctly.
+
+2004-06-03
+
+    * Fixed bug when encoding the length of non byte-code actions.
+    * Fixed bug when logging floating-point values.
+    * Corrected spelling mistakes in comments.
+    * Fixed bug when decoding compressed Flash files.
+
+2004-06-04
+
+    * Fixed bug in decoding height and width from JPEG data.
+    * Fixed bug when setting length for FSJPEGEncodingTable objects with empty tables.
+
+2004-06-07
+
+    * Released Build 4.
+
+2004-08-08
+
+    * Added methods to allow binary encoded actions to be added to objects.
+
+2004-08-09
+
+    * Released Build 5.
+
+2004-09-29
+
+    * Upgraded build process to use cpptasks.
+
+2004-11-09
+
+    * Fixed bug in FSPlaceObject2 constructor where extendLength attribute was not being initialized.

@@ -1,0 +1,30 @@
+2004-09-01
+
+	* List of bugs fixed in builds over the past week:
+
+		Build 2 - Table index now writes out correct data type code where index > 256.
+		Build 3 - added instanceof keyword; added delete operator.
+		Build 4 - multiple assignments now copy values to registers.
+		Build 5 - multiple assignments now supports assignments to object attributes.
+			  Method definitions with a single argument are now parsed correctly.
+
+2004-09-21
+
+	* The var keyword now generates an InitVariable action rather than SetVariable.
+	* Updated build process to use ANT.
+
+2004-09-21
+
+	* Completed restructuring build process.
+        * Formally released build 6.
+
+2004-10-13
+
+        * Added support for floating point numbers. Previously Translate only supported integers.
+        * Added #define, #ifdef, #ifndef, #else and #endif preprocessor directives to allow 
+          conditional code compilation. This feature is not supported Macromedia's version of
+          ActionScript.
+        * Reverted to old version numbering scheme, major.minor.release.
+        * Released version 1.0.6 (build 7).
+
+
