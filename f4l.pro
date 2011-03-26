@@ -12,3 +12,4 @@ qt \
 thread
 TEMPLATE = subdirs
 QT += qt3support
+LIBS= -lpthread -lrt -lz
