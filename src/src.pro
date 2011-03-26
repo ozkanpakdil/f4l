@@ -64,7 +64,8 @@ SOURCES += canvasItem.cpp \
            ccanvasellipse.cpp \
            ccanvasrectangle.cpp 
 LIBS += -ltransform-util \
--ltransform
+-ltransform -lpthread -lrt -lz
+
 INCLUDEPATH += flagStonePort/transform-util-cxx \
  flagStonePort/transform-cxx-bsd
 QMAKE_LIBDIR = flagStonePort/transform-util-cxx/transform-util \
