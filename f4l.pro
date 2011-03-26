@@ -11,3 +11,4 @@ warn_on \
 qt \
 thread
 TEMPLATE = subdirs
+QT += qt3support
