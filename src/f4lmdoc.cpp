@@ -20,10 +20,12 @@
 #include <qfileinfo.h>
 #include <qwidget.h>
 #include <qmessagebox.h>
-#include <qfiledialog.h>
-#include <iostream.h>
-#include <qfiledialog.h>
-#include <qprocess.h> // reading ttf files
+#include <q3filedialog.h>
+//Added by qt3to4:
+#include <Q3PtrList>
+#include <iostream>
+#include <q3filedialog.h>
+#include <q3process.h> // reading ttf files
 #include <qimage.h>
 #include <qbuffer.h>
 
@@ -43,8 +45,8 @@ using namespace std;
 F4lmDoc::F4lmDoc ()
 {
   setName ("F4lmDoc");
-  pViewList = new QList < F4lmView >;
-  pLayerList = new QPtrList < CLayer >;
+  pViewList = new Q3PtrList < F4lmView >;
+  pLayerList = new Q3PtrList < CLayer >;
   pViewList->setAutoDelete (false);
 }
 
@@ -151,7 +153,7 @@ bool F4lmDoc::newDocument ()
 bool F4lmDoc::openDocument (const QString & filename, const char *format /*=0*/ )
 {
   QFile f (filename);
-  if (!f.open (IO_ReadOnly))
+  if (!f.open (QIODevice::ReadOnly))
     return false;
   /////////////////////////////////////////////////
   // TODO: Add your document opening code here
@@ -167,7 +169,7 @@ bool F4lmDoc::saveDocument (const QString & filename, const char *format /*=0*/ 
 {
   F4lmView* tmp= (F4lmView* )pViewList->at(0);
   canview *viving=tmp->canvasViewer;
-  QCanvasItemList canvItmList;
+  Q3CanvasItemList canvItmList;
 
 
   /*QCanvasItemList l = canvas ()->allItems ();
@@ -181,7 +183,7 @@ bool F4lmDoc::saveDocument (const QString & filename, const char *format /*=0*/ 
   			}*/
 
   QFile f (filename);
-  if (!f.open (IO_WriteOnly))
+  if (!f.open (QIODevice::WriteOnly))
     return false;
 
   /////////////////////////////////////////////////
@@ -222,7 +224,7 @@ bool F4lmDoc::canCloseFrame (F4lmView * pFrame)
     case QMessageBox::Yes:
       if (title ().contains (tr ("Untitled")))
       {
-        saveName = QFileDialog::getSaveFileName (0, 0, pFrame);
+        saveName = Q3FileDialog::getSaveFileName (0, 0, pFrame);
         if (saveName.isEmpty ())
           return false;
       }
@@ -298,8 +300,8 @@ void F4lmDoc::slotfileExportMovie()
 
   for(int i=0;i<=view->dad->tl->layerMaxColNum;i++)
   {
-    QCanvasItemList l=view->mainCanvas->allItems();
-    for (QCanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
+    Q3CanvasItemList l=view->mainCanvas->allItems();
+    for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
     {
       if ((*it)->rtti () == 666 || (*it)->rtti () == 667)
       {		//should not be output object types.
@@ -307,7 +309,7 @@ void F4lmDoc::slotfileExportMovie()
       }
       switch((*it)->rtti())
       {
-      case QCanvasItem::Rtti_Ellipse:
+      case Q3CanvasItem::Rtti_Ellipse:
         {
           CCanvasEllipse *oval=(CCanvasEllipse*)(*it);
           if(oval->animationX>=i)continue;
@@ -337,7 +339,7 @@ void F4lmDoc::slotfileExportMovie()
           movie.add(new FSShowFrame());
         }
         break;
-      case QCanvasItem::Rtti_Line:
+      case Q3CanvasItem::Rtti_Line:
         {
           CCanvasLine *line=(CCanvasLine*)(*it);
           //qDebug("frame %d",i);
@@ -377,16 +379,16 @@ void F4lmDoc::slotfileExportMovie()
           movie.add(new FSShowFrame());
         }
         break;
-      case QCanvasItem::Rtti_Polygon:
+      case Q3CanvasItem::Rtti_Polygon:
 
         break;
-      case QCanvasItem::Rtti_PolygonalItem:
+      case Q3CanvasItem::Rtti_PolygonalItem:
         {
           CPencilLine *poly=(CPencilLine*)(*it);
         }
 
         break;
-      case QCanvasItem::Rtti_Rectangle:
+      case Q3CanvasItem::Rtti_Rectangle:
         {
           CCanvasRectangle *rect=(CCanvasRectangle*)(*it);
           //qDebug("rect animx : %d colon numaramiz: %d",rect->animationX,i);
@@ -451,14 +453,14 @@ void F4lmDoc::slotfileExportMovie()
           movie.add(new FSShowFrame());
         }
         break;
-      case QCanvasItem::Rtti_Spline:
+      case Q3CanvasItem::Rtti_Spline:
         break;
-      case QCanvasItem::Rtti_Sprite:
+      case Q3CanvasItem::Rtti_Sprite:
         {
-          QCanvasSprite *sprite=(QCanvasSprite*)(*it);
+          Q3CanvasSprite *sprite=(Q3CanvasSprite*)(*it);
           QByteArray ba;
-          QBuffer buffer( ba );
-          buffer.open( IO_WriteOnly );
+          QBuffer buffer( &ba );
+          buffer.open( QIODevice::WriteOnly );
 sprite->image()->convertToImage().save( &buffer, "BMP" ); // writes image into ba in BMP format
           FSImageConstructor* imageGenerator = ImageConstructor();
           int status = TransformUtil::OK;
@@ -519,13 +521,13 @@ if ((status = imageGenerator->setImage((const unsigned char*)buffer.buffer().dat
 
         }
         break;
-      case QCanvasItem::Rtti_Text:
+      case Q3CanvasItem::Rtti_Text:
         {
           CCanvasText *canvasText=(CCanvasText*)(*it);
           if(canvasText->animationX>=i)continue;
           FSTextConstructor* textGenerator = TextConstructor();
           int status = TransformUtil::OK;
-          proc = new QProcess();
+          proc = new Q3Process();
           proc->addArgument( "locate");
           proc->addArgument("*.ttf");
           QString buf;
@@ -539,7 +541,7 @@ if ((status = imageGenerator->setImage((const unsigned char*)buffer.buffer().dat
             qDebug("process could not started.");
             return;
           }
-          while(proc->isRunning()==TRUE){qApp->processEvents(5000);}
+          while(proc->isRunning()==TRUE){qApp->processEvents();}
           /*QByteArray bufByte=proc->readStdout();
           if(!proc->normalExit())
           	qDebug("%d",proc->exitStatus ());
@@ -657,7 +659,7 @@ if ((status = imageGenerator->setImage((const unsigned char*)buffer.buffer().dat
   }
   try
   {
-    QString fileName = QFileDialog::getSaveFileName( );
+    QString fileName = Q3FileDialog::getSaveFileName( );
     movie.encodeToFile(fileName);
 
   }

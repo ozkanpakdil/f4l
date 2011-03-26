@@ -20,6 +20,9 @@
 #include <qpainter.h>
 #include <qpen.h>
 #include <qcolor.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QEvent>
 #include "f4lm.h"
 #include "tools.h"
 #include "colorpopup.h"

@@ -21,15 +21,21 @@
 #include "ctexteditfortexttool.h"
 #include <qfontdialog.h>
 #include <qevent.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QLabel>
+#include <Q3ValueList>
+#include <QKeyEvent>
 
 CFontProperties::CFontProperties (QWidget * parent, const char *name):
         QWidget (parent, name)
 {
-    QVBoxLayout *topLayout = new QVBoxLayout (this);
+    Q3VBoxLayout *topLayout = new Q3VBoxLayout (this);
     QWidget *privateLayoutWidget = new QWidget (this, "layout15");
         //privateLayoutWidget->setGeometry( QRect( 0, 0, 510, 100 ) );
-    layout15 = new QHBoxLayout (privateLayoutWidget, 11, 6, "layout15");
-    layout10 = new QVBoxLayout (0, 0, 6, "layout10");
+    layout15 = new Q3HBoxLayout (privateLayoutWidget, 11, 6, "layout15");
+    layout10 = new Q3VBoxLayout (0, 0, 6, "layout10");
     textLabel1 = new QLabel (privateLayoutWidget, "textLabel1");
 	
     layout10->addWidget (textLabel1);
@@ -44,7 +50,7 @@ CFontProperties::CFontProperties (QWidget * parent, const char *name):
     layout10->addWidget (comboBox4);
     layout15->addLayout (layout10);
 
-    layout11 = new QVBoxLayout (0, 0, 6, "layout11");
+    layout11 = new Q3VBoxLayout (0, 0, 6, "layout11");
     textLabel2 = new QLabel (privateLayoutWidget, "textLabel2");
     layout11->addWidget (textLabel2);
     comboBox2 = new QComboBox (FALSE, privateLayoutWidget, "comboBox2");
@@ -58,7 +64,7 @@ CFontProperties::CFontProperties (QWidget * parent, const char *name):
     layout11->addWidget (comboBox5);
     layout15->addLayout (layout11);
 
-    layout12 = new QVBoxLayout (0, 0, 6, "layout12");
+    layout12 = new Q3VBoxLayout (0, 0, 6, "layout12");
 
     textLabel3 = new QLabel (privateLayoutWidget, "textLabel3");
     textLabel3->setMaximumSize (QSize (32767, 20));
@@ -72,7 +78,7 @@ CFontProperties::CFontProperties (QWidget * parent, const char *name):
     layout12->addWidget (pushButton1);
     layout15->addLayout (layout12);
 
-    layout13 = new QVBoxLayout (0, 0, 6, "layout13");
+    layout13 = new Q3VBoxLayout (0, 0, 6, "layout13");
 
     textLabel6 = new QLabel (privateLayoutWidget, "textLabel6");
     textLabel6->setMaximumSize (QSize (32767, 20));
@@ -112,11 +118,13 @@ CFontProperties::CFontProperties (QWidget * parent, const char *name):
     scriptScripts.clear ();
 
     QString scriptname;
-    for (int i = 0; i < QFont::NScripts; i++) {
-        scriptname = QFontDatabase::scriptName ((QFont::Script) i);
+    QFontDatabase database;
+    int k=0;
+    foreach (QString scriptname, database.families()) {
         if (!scriptname.isEmpty ()) {
             scriptNames += scriptname;
-            scriptScripts += i;
+            scriptScripts += k;
+            k++;
         }
     }
 
@@ -135,7 +143,7 @@ CFontProperties::CFontProperties (QWidget * parent, const char *name):
     updateFontStyleList ();
         ////////////////////////////////////////////////////////////
     comboBox3->clear ();
-    QValueList < int >sizes = fdb.pointSizes (family, style);
+    Q3ValueList < int >sizes = fdb.pointSizes (family, style);
 
     if (sizes.isEmpty ()) {
 #ifndef QT_NO_DEBUG

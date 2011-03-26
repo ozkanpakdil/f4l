@@ -23,6 +23,8 @@
 #include <qtranslator.h>
 #include <qsplashscreen.h>
 #include <qwaitcondition.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 #include "f4lm.h"
 #include "cursor/main_ico.xpm"
@@ -76,8 +78,8 @@ int main ( int argc, char *argv[] )
 	   else      */
 	f4lm->openDocumentFile ();
 	f4lm->setMinimumSize ( 640,480 );
-	QWaitCondition sleep;
-	sleep.wait ( 7000 );   // two seconds
+        //QWaitCondition sleep;
+        //sleep.wait ( 7000 );   // two seconds
 	//f4lm->showMaximized ();
 	f4lm->show();
 

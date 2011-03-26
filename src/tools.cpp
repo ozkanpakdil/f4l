@@ -11,13 +11,18 @@
 #include "colorpopup.h"
 
 #include <qvariant.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qimage.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qlabel.h>
 #include <qcolordialog.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QPixmap>
+#include <QEvent>
+#include <Q3VBoxLayout>
 
 #include "cursor/arrow_tool.xpm"
 #include "cursor/lasso_tool.xpm"
@@ -39,7 +44,7 @@
 #include "cursor/zoom_tool.xpm"
 #include "./cursor/colorComboBoxButton.xpm"
 
-CTools::CTools (QWidget * parent, const char *name, WFlags fl,
+CTools::CTools (QWidget * parent, const char *name, Qt::WFlags fl,
         F4lmApp * realp)
         :
         QWidget (parent, name, fl)
@@ -49,9 +54,9 @@ CTools::CTools (QWidget * parent, const char *name, WFlags fl,
     resize (600, 480);
     setCaption (trUtf8 ("Tools"));
     dad = (F4lmApp *) realp;
-    QVBoxLayout * topLayout = new QVBoxLayout (this);
+    Q3VBoxLayout * topLayout = new Q3VBoxLayout (this);
         //QVBoxLayout *layer1=new QVBoxLayout(this);
-    ToolsButtonGroup = new QButtonGroup (this, "ToolsButtonGroup");
+    ToolsButtonGroup = new Q3ButtonGroup (this, "ToolsButtonGroup");
         //ToolsButtonGroup->setGeometry( QRect( 150, 70, 71, 291 ) );
     ToolsButtonGroup->setLineWidth (2);
     ToolsButtonGroup->setTitle (trUtf8 (""));
@@ -60,70 +65,70 @@ CTools::CTools (QWidget * parent, const char *name, WFlags fl,
         //      DeleteLayer->setIconSet(QIconSet( QPixmap (( const char** ) delete_layer_xpm)));
         //  DeleteLayer->setTextLabel( trUtf8( "Delete Layer" ) );
 
-    QVBoxLayout * layer1 = new QVBoxLayout (ToolsButtonGroup);
+    Q3VBoxLayout * layer1 = new Q3VBoxLayout (ToolsButtonGroup);
     QLabel * toolsLabel = new QLabel (ToolsButtonGroup, "Tools");
     toolsLabel->setText (tr ("   Tools"));
     layer1->addWidget (toolsLabel);
-    QHBoxLayout * layer2 = new QHBoxLayout (layer1);
+    Q3HBoxLayout * layer2 = new Q3HBoxLayout (layer1);
     ArrowTool =new CToolButton (ToolsButtonGroup,tr("Use the Arrow to select  drag and reshape the drawing"));
-    ArrowTool->setIconSet (QIconSet (QPixmap ((const char **) arrow_tool_xpm)));
+    ArrowTool->setIconSet (QIcon (QPixmap ((const char **) arrow_tool_xpm)));
     ArrowTool->setTextLabel (trUtf8 ("Arrow Tool"));
     SubSelectionTool =new CToolButton (ToolsButtonGroup,tr("Use the Subselect tool to select  drag and reshape the drawing using handles"));
-    SubSelectionTool->setIconSet (QIconSet (QPixmap ((const char **) sub_selection_tool_xpm)));
+    SubSelectionTool->setIconSet (QIcon (QPixmap ((const char **) sub_selection_tool_xpm)));
     SubSelectionTool->setTextLabel (trUtf8 ("Subselection Tool"));
     layer2->addWidget (ArrowTool);
     layer2->addWidget (SubSelectionTool);
 
-    QHBoxLayout * layer3 = new QHBoxLayout (layer1);
+    Q3HBoxLayout * layer3 = new Q3HBoxLayout (layer1);
     LineTool =new CToolButton (ToolsButtonGroup,tr ("Use the Line tool  to draw lines"));
-    LineTool->setIconSet (QIconSet (QPixmap ((const char **) line_tool_xpm)));
+    LineTool->setIconSet (QIcon (QPixmap ((const char **) line_tool_xpm)));
     LineTool->setTextLabel (trUtf8 ("Line Tool"));
     LassoTool =new CToolButton (ToolsButtonGroup,tr ("Use the Lasso to select areas of the drawing"));
-    LassoTool->setIconSet (QIconSet (QPixmap ((const char **) lasso_tool_xpm)));
+    LassoTool->setIconSet (QIcon (QPixmap ((const char **) lasso_tool_xpm)));
     LassoTool->setTextLabel (trUtf8 ("Lasso Tool"));
 	
     layer3->addWidget (LineTool);
     layer3->addWidget (LassoTool);
 
-    QHBoxLayout * layer4 = new QHBoxLayout (layer1);
+    Q3HBoxLayout * layer4 = new Q3HBoxLayout (layer1);
     PenTool =new CToolButton (ToolsButtonGroup,tr ("Use the Pen tool to draw lines and curves"));
-    PenTool->setIconSet (QIconSet (QPixmap ((const char **) pen_tool_xpm)));
+    PenTool->setIconSet (QIcon (QPixmap ((const char **) pen_tool_xpm)));
     PenTool->setTextLabel (trUtf8 ("Pen Tool"));
     TextTool =new CToolButton (ToolsButtonGroup,tr("Use the Text tool to create and edit formated text"));
-    TextTool->setIconSet (QIconSet (QPixmap ((const char **) text_tool_xpm)));
+    TextTool->setIconSet (QIcon (QPixmap ((const char **) text_tool_xpm)));
     TextTool->setTextLabel (trUtf8 ("Text Tool"));
     layer4->addWidget (PenTool);
     layer4->addWidget (TextTool);
 
-    QHBoxLayout * layer5 = new QHBoxLayout (layer1);
+    Q3HBoxLayout * layer5 = new Q3HBoxLayout (layer1);
     OvalTool =new CToolButton (ToolsButtonGroup,tr ("Use the Oval  tool  to draw oval shapes"));
-    OvalTool->setIconSet (QIconSet (QPixmap ((const char **) oval_tool_xpm)));
+    OvalTool->setIconSet (QIcon (QPixmap ((const char **) oval_tool_xpm)));
     OvalTool->setTextLabel (trUtf8 ("Oval Tool"));
     RectangleTool =new CToolButton (ToolsButtonGroup,tr("Use the Rectangle tool to draw rectangles and rounded rectangles"));
-    RectangleTool->setIconSet (QIconSet (QPixmap ((const char **) rectangle_tool_xpm)));
+    RectangleTool->setIconSet (QIcon (QPixmap ((const char **) rectangle_tool_xpm)));
     RectangleTool->setTextLabel (trUtf8 ("Rectangle Tool"));
     layer5->addWidget (OvalTool);
     layer5->addWidget (RectangleTool);
 
-    QHBoxLayout * layer6 = new QHBoxLayout (layer1);
+    Q3HBoxLayout * layer6 = new Q3HBoxLayout (layer1);
     PencilTool =new CToolButton (ToolsButtonGroup,tr ("Use the Pencil to draw lines and shapes"));
-    PencilTool->setIconSet (QIconSet (QPixmap ((const char **) pencil_tool_xpm)));
+    PencilTool->setIconSet (QIcon (QPixmap ((const char **) pencil_tool_xpm)));
     PencilTool->setTextLabel (trUtf8 ("Pencil Tool"));
     BrushTool =new CToolButton (ToolsButtonGroup,tr ("Use the Brush to paint filled areas"));
-    BrushTool->setIconSet (QIconSet (QPixmap ((const char **) brush_tool_xpm)));
+    BrushTool->setIconSet (QIcon (QPixmap ((const char **) brush_tool_xpm)));
     BrushTool->setTextLabel (trUtf8 ("Brush Tool"));
     layer6->addWidget (PencilTool);
     layer6->addWidget (BrushTool);
 
-    QHBoxLayout * layer7 = new QHBoxLayout (layer1);
+    Q3HBoxLayout * layer7 = new Q3HBoxLayout (layer1);
 
     FreeTransformTool =new CToolButton (ToolsButtonGroup,tr("Use Free Transform to select  drag and reshape the drawing"));
 
-    FreeTransformTool->setIconSet (QIconSet (QPixmap ((const char **) free_transform_tool_xpm)));
+    FreeTransformTool->setIconSet (QIcon (QPixmap ((const char **) free_transform_tool_xpm)));
     FreeTransformTool->setTextLabel (trUtf8 ("Free Transform Tool"));
     FillTransformTool =new CToolButton (ToolsButtonGroup,tr("Fill Transform shows handles to adjust the angle  position and size of a gradient or bitmap fill"));
 
-    FillTransformTool->setIconSet (QIconSet (QPixmap ((const char **) fill_transform_tool_xpm)));
+    FillTransformTool->setIconSet (QIcon (QPixmap ((const char **) fill_transform_tool_xpm)));
     FillTransformTool->setTextLabel (trUtf8 ("Fill Transform Tool"));
 	
     layer7->addWidget (FreeTransformTool);
@@ -133,25 +138,25 @@ CTools::CTools (QWidget * parent, const char *name, WFlags fl,
     FreeTransformTool->hide ();
     FillTransformTool->hide ();
 
-    QHBoxLayout * layer8 = new QHBoxLayout (layer1);
+    Q3HBoxLayout * layer8 = new Q3HBoxLayout (layer1);
     InkBottleTool =new CToolButton (ToolsButtonGroup,tr("Use the Ink Bottle to apply line color and thickness to the drawing"));
 
-    InkBottleTool->setIconSet (QIconSet (QPixmap ((const char **) ink_bottle_tool_xpm)));
+    InkBottleTool->setIconSet (QIcon (QPixmap ((const char **) ink_bottle_tool_xpm)));
     InkBottleTool->setTextLabel (trUtf8 ("Ink Bottle Tool"));
     PaintBucketTool =new CToolButton (ToolsButtonGroup,tr("Use the Paint Bucket to fill enclosed areas of the drawing with color"));
 
-    PaintBucketTool->setIconSet (QIconSet (QPixmap ((const char **) paint_bucket_tool_xpm)));
+    PaintBucketTool->setIconSet (QIcon (QPixmap ((const char **) paint_bucket_tool_xpm)));
     PaintBucketTool->setTextLabel (trUtf8 ("Paint Bucket Tool"));
     layer8->addWidget (InkBottleTool);
     layer8->addWidget (PaintBucketTool);
 
-    QHBoxLayout * layer9 = new QHBoxLayout (layer1);
+    Q3HBoxLayout * layer9 = new Q3HBoxLayout (layer1);
     EyedropperTool =new CToolButton (ToolsButtonGroup,tr("Use the Dropper to pick up line  fill and text styles from the drawing"));
 
-    EyedropperTool->setIconSet (QIconSet (QPixmap ((const char **) eye_dropper_tool_xpm)));
+    EyedropperTool->setIconSet (QIcon (QPixmap ((const char **) eye_dropper_tool_xpm)));
     EyedropperTool->setTextLabel (trUtf8 ("Eye Dropper Tool"));
     EraserTool =new CToolButton (ToolsButtonGroup,tr("Use the Eraser to erase lines and fills in the drawing"));
-    EraserTool->setIconSet (QIconSet (QPixmap ((const char **) eraser_tool_xpm)));
+    EraserTool->setIconSet (QIcon (QPixmap ((const char **) eraser_tool_xpm)));
     EraserTool->setTextLabel (trUtf8 ("Eraser Tool"));
     layer9->addWidget (EyedropperTool);
     layer9->addWidget (EraserTool);
@@ -160,25 +165,25 @@ CTools::CTools (QWidget * parent, const char *name, WFlags fl,
         //ToolsViewGroup->setExclusive(true);
     QLabel * viewLabel = new QLabel (ToolsButtonGroup, "View");
     viewLabel->setText (tr ("   View"));
-    QVBoxLayout * layer10 = new QVBoxLayout (layer1);
+    Q3VBoxLayout * layer10 = new Q3VBoxLayout (layer1);
     layer10->addWidget (viewLabel);
     HandTool =new CToolButton (ToolsButtonGroup,tr ("Use the Hand  to move the view of the drawing"));
-    HandTool->setIconSet (QIconSet (QPixmap ((const char **) hand_tool_xpm)));
+    HandTool->setIconSet (QIcon (QPixmap ((const char **) hand_tool_xpm)));
     HandTool->setTextLabel (trUtf8 ("Hand Tool"));
 	
     ZoomTool =new CToolButton (ToolsButtonGroup,tr("Use the Magnifer to enlarge or reduce the view of the drawing"));
-    ZoomTool->setIconSet (QIconSet (QPixmap ((const char **) zoom_tool_xpm)));
+    ZoomTool->setIconSet (QIcon (QPixmap ((const char **) zoom_tool_xpm)));
     ZoomTool->setTextLabel (trUtf8 ("Zoom Tool"));
 	
-    QHBoxLayout * layer11 = new QHBoxLayout (layer10);
+    Q3HBoxLayout * layer11 = new Q3HBoxLayout (layer10);
     layer11->addWidget (HandTool);
     layer11->addWidget (ZoomTool);
 
-    ToolsColorsGroup = new QButtonGroup (this, "ToolsColorsGroup");
+    ToolsColorsGroup = new Q3ButtonGroup (this, "ToolsColorsGroup");
     ToolsColorsGroup->setExclusive (true);
     QLabel * colorsLabel = new QLabel (ToolsColorsGroup, "Colors");
     colorsLabel->setText ("   Colors");
-    QVBoxLayout * layer12 = new QVBoxLayout (ToolsColorsGroup);
+    Q3VBoxLayout * layer12 = new Q3VBoxLayout (ToolsColorsGroup);
     layer12->addWidget (colorsLabel);
     StrokeColor = new CToolButton (ToolsColorsGroup);
     /*strokpix.resize(16,16);
@@ -188,10 +193,10 @@ CTools::CTools (QWidget * parent, const char *name, WFlags fl,
     strokpix.convertFromImage (*str);
     fillpix.resize (16, 16);
     fillpix.fill (QColor (0, 0, 0));
-    StrokeColor->setIconSet (QIconSet (strokpix));
+    StrokeColor->setIconSet (QIcon (strokpix));
     StrokeColor->setTextLabel (trUtf8 ("Stroke Color"));
     FillColor = new CToolButton (ToolsColorsGroup);
-    FillColor->setIconSet (QIconSet (fillpix));
+    FillColor->setIconSet (QIcon (fillpix));
     FillColor->setTextLabel (trUtf8 ("Fill Color"));
         //QHBoxLayout *layer13=new QHBoxLayout(layer12);
     layer12->addWidget (StrokeColor);
@@ -199,11 +204,11 @@ CTools::CTools (QWidget * parent, const char *name, WFlags fl,
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////burdaki buttonlar henüz iþlenmemiþtir. kafadan yazýldý o kadar.//////////////////////////////////////////////////////
-    QButtonGroup * ToolsOptionsGroup =new QButtonGroup (this, "ToolsOptionsGroup");
+    Q3ButtonGroup * ToolsOptionsGroup =new Q3ButtonGroup (this, "ToolsOptionsGroup");
     ToolsOptionsGroup->setExclusive (true);
     QLabel * optionsLabel = new QLabel (ToolsOptionsGroup, "Colors");
     optionsLabel->setText (tr ("   Options"));
-    QVBoxLayout * layer13 = new QVBoxLayout (ToolsOptionsGroup);
+    Q3VBoxLayout * layer13 = new Q3VBoxLayout (ToolsOptionsGroup);
     layer13->addWidget (optionsLabel);
     /*    QToolButton *_StrokeColor= new CToolButton( ToolsOptionsGroup);
     	strokpix.resize(16,16);

@@ -19,16 +19,23 @@
 #include "clistbox.h"
 #include "timeline.h"
 #include <qpainter.h>
-#include <qheader.h>
-#include <qtable.h>
+#include <q3header.h>
+#include <q3table.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QMouseEvent>
+#include <QDragMoveEvent>
+#include <QDragLeaveEvent>
 #include "cursor/layer_pic.xpm"
 #include "cursor/written_pic.xpm"
 #include "cursor/outline_pic.xpm"
 #include "cursor/goz_pic.xpm"
 #include "cursor/kilit_pic.xpm"
 
-CListView::CListView (QWidget * parent, const char *name, WFlags f)
-:QListView (parent, name, f)
+CListView::CListView (QWidget * parent, const char *name, Qt::WFlags f)
+:Q3ListView (parent, name, f)
 {
         //alttaki satir bütün satirin secilmesini sagliyor diger sekilde
         //sadece ilk kolondaki elemani secer.
@@ -43,18 +50,18 @@ CListView::CListView (QWidget * parent, const char *name, WFlags f)
            //f.setWeight(1);
        setFont( fa );   */
         //    setScrollBar(false);
-    setHScrollBarMode (QScrollView::AlwaysOff);
+    setHScrollBarMode (Q3ScrollView::AlwaysOff);
 
         //setVariableHeight(true);
         //setVariableWidth ( true );
 
         //setRowMode(QListBox::FitToHeight);
 
-    _0 = QIconSet (QPixmap ((const char **) layer_pic_xpm));
-    _1 = QIconSet (QPixmap ((const char **) written_pic_xpm));
-    _2 = QIconSet (QPixmap ((const char **) goz_pic_xpm));
-    _3 = QIconSet (QPixmap ((const char **) kilit_pic_xpm));
-    _4 = QIconSet (QPixmap ((const char **) outline_pic_xpm));
+    _0 = QIcon (QPixmap ((const char **) layer_pic_xpm));
+    _1 = QIcon (QPixmap ((const char **) written_pic_xpm));
+    _2 = QIcon (QPixmap ((const char **) goz_pic_xpm));
+    _3 = QIcon (QPixmap ((const char **) kilit_pic_xpm));
+    _4 = QIcon (QPixmap ((const char **) outline_pic_xpm));
     pencil = QPixmap ((const char **) written_pic_xpm);
     addColumn (_0, "");
     addColumn ("");
@@ -69,14 +76,14 @@ CListView::CListView (QWidget * parent, const char *name, WFlags f)
     setColumnWidth (4, _0.pixmap ().width () + 7);
     setColumnWidth (5, _0.pixmap ().width () + 7);
 
-    setColumnWidthMode (0, QListView::Manual);
-    setColumnWidthMode (2, QListView::Manual);
-    setColumnWidthMode (3, QListView::Maximum);
-    setColumnWidthMode (4, QListView::Maximum);
-    setColumnWidthMode (5, QListView::Maximum);
+    setColumnWidthMode (0, Q3ListView::Manual);
+    setColumnWidthMode (2, Q3ListView::Manual);
+    setColumnWidthMode (3, Q3ListView::Maximum);
+    setColumnWidthMode (4, Q3ListView::Maximum);
+    setColumnWidthMode (5, Q3ListView::Maximum);
 
-    setResizeMode (QListView::LastColumn);
-    QHeader * h = header ();
+    setResizeMode (Q3ListView::LastColumn);
+    Q3Header * h = header ();
         //h->setMinimumHeight(_0.pixmap().height()+10);
     h->hide ();
 	
@@ -118,15 +125,15 @@ void CListView::contentsMousePressEvent (QMouseEvent * e)
         //this clear all pencil pixmaps from items then write the clicked
         //pencil pixmap
     QPoint k (contentsToViewport (e->pos ()));
-    QListViewItem * tempit = itemAt (k);
+    Q3ListViewItem * tempit = itemAt (k);
     if (tempit) {
-        QListViewItem * item = firstChild ();
+        Q3ListViewItem * item = firstChild ();
         for (; item; item = item->nextSibling ()) {
             item->setPixmap (2, NULL);
         }
         QPoint p (contentsToViewport (e->pos ()));
-        QListView::contentsMousePressEvent (e);
-        QListViewItem * i = itemAt (p);
+        Q3ListView::contentsMousePressEvent (e);
+        Q3ListViewItem * i = itemAt (p);
         if (i) {
                         // if the user clicked into the root decoration of the item, don't try to start a drag!
             if (p.x () >header ()->cellPos (header ()->mapToActual (0)) +
@@ -140,7 +147,7 @@ void CListView::contentsMousePressEvent (QMouseEvent * e)
 			
             i->setPixmap (2, pencil);
             int j = 0;
-            QListViewItem * item = firstChild ();
+            Q3ListViewItem * item = firstChild ();
             for (int counter = 0; item; item = item->nextSibling (), counter++) {
                 if (i == item) {
                     j = counter;
@@ -149,7 +156,7 @@ void CListView::contentsMousePressEvent (QMouseEvent * e)
             }
 			
             dad->timeLineTable->clearSelection (true);
-            QTableSelection sel;
+            Q3TableSelection sel;
             sel.init (j, 0);
                         //CTimeLineDataStructure *temp=
             sel.expandTo (j,dad->layerFrames->at (j)->frames->last ()->tableItemNo);

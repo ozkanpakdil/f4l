@@ -18,9 +18,11 @@
 #include "ccolordialog.h"
 #include "f4lm.h"
 #include <qcolordialog.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qtoolbutton.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
 #include "csmalcolorboxes.h"
 
 CColorDialog::CColorDialog (QWidget * parent, const char *name, F4lmApp * p):
@@ -30,9 +32,9 @@ CColorDialog::CColorDialog (QWidget * parent, const char *name, F4lmApp * p):
         //renk=QColorDialog::getColor(renk,this);
     realp = p;
 
-    QVBoxLayout *topLayout = new QVBoxLayout (this);
+    Q3VBoxLayout *topLayout = new Q3VBoxLayout (this);
 
-    QButtonGroup *ToolsButtonGroup =new QButtonGroup (this, "ToolsButtonGroup");
+    Q3ButtonGroup *ToolsButtonGroup =new Q3ButtonGroup (this, "ToolsButtonGroup");
     ToolsButtonGroup->setGeometry (QRect (150, 70, 71, 291));
     ToolsButtonGroup->setLineWidth (0);
     ToolsButtonGroup->setTitle (trUtf8 (""));

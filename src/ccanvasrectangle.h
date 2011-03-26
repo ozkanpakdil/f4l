@@ -20,17 +20,17 @@
 #ifndef CCANVASRECTANGLE_H
 #define CCANVASRECTANGLE_H
 
-#include <qcanvas.h>
+#include <q3canvas.h>
 
 /**
 same with other canvas items
 
 @author Ökan Pakdil
 */
-class CCanvasRectangle : public QCanvasRectangle
+class CCanvasRectangle : public Q3CanvasRectangle
 {
 public:
-    CCanvasRectangle(int x, int y, int width, int height, QCanvas * canvas);
+    CCanvasRectangle(int x, int y, int width, int height, Q3Canvas * canvas);
 
     ~CCanvasRectangle();
 	int Row;///this will be the Z dimension for object

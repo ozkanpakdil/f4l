@@ -253,3 +253,5 @@ SOURCES += FSAction.cpp \
            FSWaitForFrame.cpp \
            FSWaitForFrame2.cpp \
            FSWith.cpp 
+#The following line was inserted by qt3to4
+QT +=  qt3support 

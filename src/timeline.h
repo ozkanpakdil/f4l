@@ -10,7 +10,12 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <Q3PtrList>
 #include "table.h"
 #include "clistbox.h"
 #include "clabel.h"
@@ -23,16 +28,16 @@
 */
 
 class F4lmApp;
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
-class QButtonGroup;
-class QListBox;
-class QListBoxItem;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
+class Q3ButtonGroup;
+class Q3ListBox;
+class Q3ListBoxItem;
 class QSplitter;
-class QTable;
+class Q3Table;
 class QToolButton;
-class QListView;
+class Q3ListView;
 class CBase;
 
 /// table cell's position inside time line
@@ -61,11 +66,11 @@ public:
     CTimeLineDataStructure (int isim)
     {
         name = isim;
-        frames = new QPtrList < CTimeLineNodes >;
+        frames = new Q3PtrList < CTimeLineNodes >;
         frames->setAutoDelete (true);
     }
     int name;
-    QPtrList < CTimeLineNodes > *frames;
+    Q3PtrList < CTimeLineNodes > *frames;
 
 };
 
@@ -77,13 +82,13 @@ class CTimeLine:public QWidget
     Q_OBJECT
 
 public:
-    CTimeLine (QWidget * parent = 0, const char *name = 0, bool modal = FALSE, WFlags fl = 0);
+    CTimeLine (QWidget * parent = 0, const char *name = 0, bool modal = FALSE, Qt::WFlags fl = 0);
     ~CTimeLine ();
     QSplitter * Splitter1;
     CLabel * timeLineLeftTopLabel;
     /*QListView* */
     CListView * timeLineListbox;
-    QButtonGroup * timeLineLeftButtonGroup;
+    Q3ButtonGroup * timeLineLeftButtonGroup;
     QToolButton * NewLayer;
     QToolButton * NewWayLayer;
     QToolButton * NewLayerFolder;
@@ -92,7 +97,7 @@ public:
     CLabel * currentFrameLabel;//timeline's specific label
     CLabel * totalTimeLabel;
     CTable * timeLineTable;
-    QButtonGroup * timeLineRightButtonGroup;
+    Q3ButtonGroup * timeLineRightButtonGroup;
     QToolButton * ToolButton6;
     QToolButton * ToolButton7;
     QToolButton * ToolButton8;
@@ -101,15 +106,15 @@ public:
     CBase * baseforleftlabel;
     F4lmApp * dad;
 //benimde f4lde bir sat?r?m var..Cem
-    QPtrList < CTimeLineDataStructure > *layerFrames;
+    Q3PtrList < CTimeLineDataStructure > *layerFrames;
     bool adding;			//if adding happened this is true otherwise false
     int layerNum;		//think this as a row number
     int tableColNum;		//table width or table column number
     int layerMaxColNum;		//this holds left end range for righttoplabel. Can change with just inserting new canvases
 
 protected:
-    QVBoxLayout * Layout2;
-    QVBoxLayout * Layout3;
+    Q3VBoxLayout * Layout2;
+    Q3VBoxLayout * Layout3;
 
 public slots:			// Public slots
     void tableRefresh ();
@@ -126,7 +131,7 @@ public slots:			// Public slots
     void slotLabelclick ();
 
     /** this works when user click on listView items */
-    void slotListViewClicked (QListViewItem *);
+    void slotListViewClicked (Q3ListViewItem *);
 
     /** this will scroll the left label*/
     void slotLabelMove (int x, int y);

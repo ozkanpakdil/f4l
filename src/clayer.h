@@ -19,8 +19,8 @@
 #define CLAYER_H
 
 #include <qwidget.h>
-#include <qcanvas.h>
-#include <qptrlist.h>
+#include <q3canvas.h>
+#include <q3ptrlist.h>
 
 class CCanvas;
 class CCanvasItem;
@@ -35,10 +35,10 @@ public:
     CLayer (QWidget * parent = 0, const char *name = 0);
     ~CLayer ();
 
-    QPtrList < CCanvasItem > *pCanvasItemList;
+    Q3PtrList < CCanvasItem > *pCanvasItemList;
 		
 		///this list holds all canvases
-    QPtrList < CCanvas > *pCanvasList;
+    Q3PtrList < CCanvas > *pCanvasList;
 };
 
 #endif

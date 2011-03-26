@@ -21,9 +21,13 @@
 
 #include <qwidget.h>
 #include <qpixmap.h>
-#include <qtextedit.h>
+#include <q3textedit.h>
 #include <qtoolbutton.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QHideEvent>
+#include <QShowEvent>
+#include <QMouseEvent>
 
 class CColorSwatches;
 class CToolButton;
@@ -33,12 +37,12 @@ class CColorPopup:public QWidget
 
     Q_OBJECT
 public:
-    CColorPopup (QWidget * parent = 0, const char *name = 0, WFlags f =0);
+    CColorPopup (QWidget * parent = 0, const char *name = 0, Qt::WFlags f =0);
     ~CColorPopup ();
     CColorSwatches * s;
     QPixmap strokpix;
     QPixmap fillpix;
-    QTextEdit * colorName;
+    Q3TextEdit * colorName;
     QLabel * colorShower;
     QPixmap mcursor;
 

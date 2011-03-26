@@ -19,8 +19,8 @@
  ***************************************************************************/
 #include "ccanvasellipse.h"
 
-CCanvasEllipse::CCanvasEllipse(int width, int height, QCanvas * canvas )
-:QCanvasEllipse(width, height,  canvas )
+CCanvasEllipse::CCanvasEllipse(int width, int height, Q3Canvas * canvas )
+:Q3CanvasEllipse(width, height,  canvas )
 {
 }
 

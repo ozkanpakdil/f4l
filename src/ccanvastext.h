@@ -20,17 +20,17 @@
 #ifndef CCANVASTEXT_H
 #define CCANVASTEXT_H
 
-#include <qcanvas.h>
+#include <q3canvas.h>
 
 /**
 will be used for f4l canvas object. with this we gonna set Z from Layers and set Time from columns of timelinetable.
 
 @author Ökan Pakdil
 */
-class CCanvasText : public QCanvasText
+class CCanvasText : public Q3CanvasText
 {
 public:
-    CCanvasText( const QString & t,QCanvas * canvas);
+    CCanvasText( const QString & t,Q3Canvas * canvas);
 
     ~CCanvasText();
 	int Row;///this will be the Z dimension for object

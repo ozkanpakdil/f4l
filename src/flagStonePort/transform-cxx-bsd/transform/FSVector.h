@@ -32,7 +32,7 @@
 #define __FSVECTOR_H__ 1
 
 #include "FSException.h"
-#include <new.h>
+#include <new>
 
 namespace transform
 {

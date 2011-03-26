@@ -19,12 +19,12 @@
 #define CCANVAS_H
 
 #include <qwidget.h>
-#include <qcanvas.h>
+#include <q3canvas.h>
 
 /**we may or will need some other functionality from canvas class
   *@author özkan pakdil
   */
-class CCanvas:public QCanvas
+class CCanvas:public Q3Canvas
 {
 Q_OBJECT public:
     CCanvas (QWidget * parent = 0, const char *name = 0);

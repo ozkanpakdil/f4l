@@ -73,5 +73,7 @@ TARGET = ../bin/f4l
 CONFIG += debug \
 warn_on \
 qt \
-thread
+thread -Wno-write-strings
 TEMPLATE = app
+#The following line was inserted by qt3to4
+QT +=  qt3support 

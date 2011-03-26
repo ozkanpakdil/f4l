@@ -2,24 +2,28 @@
 #include "canview.h"
 #include "ccanvastext.h"
 
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qfontdialog.h>
+//Added by qt3to4:
+#include <QPaintEvent>
+#include <Q3Frame>
+#include <QKeyEvent>
 
 CTextEditForTextTool::CTextEditForTextTool (QWidget * parent,
         const char *name):
-        QTextEdit (parent, name)
+        Q3TextEdit (parent, name)
 {
-    setFrameStyle (QFrame::Box | QFrame::Raised);
-    setVScrollBarMode (QScrollView::AlwaysOff);
-    setHScrollBarMode (QScrollView::AlwaysOff);
-    setResizePolicy (QScrollView::AutoOne);
-    setWordWrap (QTextEdit::NoWrap);
+    setFrameStyle (Q3Frame::Box | Q3Frame::Raised);
+    setVScrollBarMode (Q3ScrollView::AlwaysOff);
+    setHScrollBarMode (Q3ScrollView::AlwaysOff);
+    setResizePolicy (Q3ScrollView::AutoOne);
+    setWordWrap (Q3TextEdit::NoWrap);
     resize (20, 30);
 }
 
 void CTextEditForTextTool::keyPressEvent (QKeyEvent * e)
 {
-    QTextEdit::keyPressEvent (e);
+    Q3TextEdit::keyPressEvent (e);
     if (contentsHeight () > visibleHeight ()
             || contentsWidth () > visibleWidth ())
         resize (contentsWidth () + 10, contentsHeight () + 10);
@@ -39,12 +43,12 @@ void CTextEditForTextTool::keyPressEvent (QKeyEvent * e)
 
 void CTextEditForTextTool::paintEvent (QPaintEvent * event)
 {
-    QTextEdit::paintEvent (event);
+    Q3TextEdit::paintEvent (event);
 }
 
-QPopupMenu * CTextEditForTextTool::createPopupMenu (const QPoint & pos)
+Q3PopupMenu * CTextEditForTextTool::createPopupMenu (const QPoint & pos)
 {
-    QPopupMenu *textRightClickMenu = QTextEdit::createPopupMenu (pos);
+    Q3PopupMenu *textRightClickMenu = Q3TextEdit::createPopupMenu (pos);
     textRightClickMenu->insertSeparator ();
     textRightClickMenu->insertItem ("Select font", this, SLOT (setUserFont ()));
     return textRightClickMenu;

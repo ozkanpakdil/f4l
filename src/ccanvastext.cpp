@@ -19,8 +19,8 @@
  ***************************************************************************/
 #include "ccanvastext.h"
 
-CCanvasText::CCanvasText( const QString & t="",QCanvas * canvas=0)
- : QCanvasText(t,canvas)
+CCanvasText::CCanvasText( const QString & t="",Q3Canvas * canvas=0)
+ : Q3CanvasText(t,canvas)
 {
 }
 

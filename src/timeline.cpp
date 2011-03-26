@@ -25,20 +25,27 @@
 #include "ccanvas.h"
 
 #include <qvariant.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qlabel.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qpushbutton.h>
 #include <qsplitter.h>
-#include <qtable.h>
+#include <q3table.h>
 #include <qtoolbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qpainter.h>
 //#include <iostream.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qimage.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QPixmap>
+#include <Q3PtrList>
+#include <Q3VBoxLayout>
+#include <QDebug>
+#include <iostream>
 
 #include "cursor/new_layer_on_timeline.xpm"
 #include "cursor/motion_guide.xpm"
@@ -51,14 +58,16 @@
 #include "cursor/kilit_pic.xpm"
 #include "cursor/dot.xpm"
 
+using namespace std;
+
 /*
 *  Constructs the timelinetable which is a child of 'f4lmapp', with the 
 *  name 'timeLineTable' and widget flags set to 'f'.
 */
-CTimeLine::CTimeLine (QWidget * parent, const char *name, bool modal,WFlags fl)
-        :QWidget (parent, name, modal)
+CTimeLine::CTimeLine (QWidget * parent, const char *name, bool modal,Qt::WFlags fl)
+        :QWidget (parent, name)
 {
-    layerFrames = new QPtrList < CTimeLineDataStructure >;
+    layerFrames = new Q3PtrList < CTimeLineDataStructure >;
     CTimeLineDataStructure * node = new CTimeLineDataStructure (1);
     CTimeLineNodes * tabnode = new CTimeLineNodes (1);
     node->frames->append (tabnode);
@@ -75,14 +84,14 @@ CTimeLine::CTimeLine (QWidget * parent, const char *name, bool modal,WFlags fl)
     setCaption (trUtf8 ("TimeLine"));
     layerNum = 1;
     layerMaxColNum = 1;
-    QVBoxLayout * topLayout = new QVBoxLayout (this);
+    Q3VBoxLayout * topLayout = new Q3VBoxLayout (this);
 
     Splitter1 = new QSplitter (this, "Splitter1");
-    Splitter1->setOrientation (QSplitter::Horizontal);
+    Splitter1->setOrientation (Qt::Horizontal);
     
 	QWidget * privateLayoutWidget = new QWidget (Splitter1, "Layout2");
 
-    Layout2 = new QVBoxLayout (privateLayoutWidget, 0, 0, "Layout2");
+    Layout2 = new Q3VBoxLayout (privateLayoutWidget, 0, 0, "Layout2");
     Splitter1->setResizeMode (privateLayoutWidget, QSplitter::KeepSize);
     timeLineLeftTopLabel =new CLabel (privateLayoutWidget, "timeLineLeftTopLabel");
     timeLineLeftTopLabel->setFixedHeight (23);
@@ -136,7 +145,7 @@ CTimeLine::CTimeLine (QWidget * parent, const char *name, bool modal,WFlags fl)
     Layout2->addWidget (timeLineListbox);
 	timeLineListbox->firstChild()->setSelected(true);
 
-    timeLineLeftButtonGroup = new QButtonGroup (privateLayoutWidget, "timeLineLeftButtonGroup");
+    timeLineLeftButtonGroup = new Q3ButtonGroup (privateLayoutWidget, "timeLineLeftButtonGroup");
 
         //timeLineLeftButtonGroup->setMinimumSize( QSize( 120, 0 ) );
         //timeLineLeftButtonGroup->setMaximumSize( QSize( 120, 22 ) );
@@ -146,7 +155,7 @@ CTimeLine::CTimeLine (QWidget * parent, const char *name, bool modal,WFlags fl)
 
     NewLayer = new QToolButton (timeLineLeftButtonGroup, "NewLayer");
     NewLayer->setGeometry (QRect (2, 2, 19, 17));
-    NewLayer->setIconSet (QIconSet(QPixmap ((const char **) new_layer_on_timeline_xpm)));
+    NewLayer->setIconSet (QIcon(QPixmap ((const char **) new_layer_on_timeline_xpm)));
     NewLayer->setTextLabel ("Insert Layer");
 
         //NewLayer->adjustSize();
@@ -154,24 +163,24 @@ CTimeLine::CTimeLine (QWidget * parent, const char *name, bool modal,WFlags fl)
 
     NewWayLayer = new QToolButton (timeLineLeftButtonGroup, "NewWayLayer");
     NewWayLayer->setGeometry (QRect (22, 2, 19, 17));
-    NewWayLayer->setIconSet (QIconSet (QPixmap ((const char **) motion_guide_xpm)));
+    NewWayLayer->setIconSet (QIcon (QPixmap ((const char **) motion_guide_xpm)));
     NewWayLayer->setTextLabel (trUtf8 ("Add motion Guide"));
 
     NewLayerFolder = new QToolButton (timeLineLeftButtonGroup, "NewLayerFolder");
     NewLayerFolder->setGeometry (QRect (42, 2, 19, 17));
-    NewLayerFolder->setIconSet (QIconSet (QPixmap ((const char **) layer_folder_xpm)));
+    NewLayerFolder->setIconSet (QIcon (QPixmap ((const char **) layer_folder_xpm)));
     NewLayerFolder->setTextLabel (trUtf8 ("Insert Layer Folder"));
 
     DeleteLayer = new QToolButton (timeLineLeftButtonGroup, "DeleteLayer");
     DeleteLayer->setGeometry (QRect (92, 2, 19, 17));
-    DeleteLayer->setIconSet (QIconSet (QPixmap ((const char **) delete_layer_xpm)));
+    DeleteLayer->setIconSet (QIcon (QPixmap ((const char **) delete_layer_xpm)));
     DeleteLayer->setTextLabel (trUtf8 ("Delete Layer"));
 
     Layout2->addWidget (timeLineLeftButtonGroup);
 
     QWidget * privateLayoutWidget_2 = new QWidget (Splitter1, "Layout3");
 
-    Layout3 = new QVBoxLayout (privateLayoutWidget_2, 0, 0, "Layout3");
+    Layout3 = new Q3VBoxLayout (privateLayoutWidget_2, 0, 0, "Layout3");
 
     baseforleftlabel = new CBase (privateLayoutWidget_2, "baseforleftlabel");
 
@@ -179,19 +188,19 @@ CTimeLine::CTimeLine (QWidget * parent, const char *name, bool modal,WFlags fl)
     timeLineRightTopLabel->setMinimumHeight (20);
     timeLineRightTopLabel->resize (tableColNum * 8, 20);
 
-    QHBoxLayout * Layout9 = new QHBoxLayout (Layout3);
+    Q3HBoxLayout * Layout9 = new Q3HBoxLayout (Layout3);
     Layout9->addWidget (baseforleftlabel);
 
     baseforleftlabel->addChild (timeLineRightTopLabel);
-    baseforleftlabel->setVScrollBarMode (QScrollView::AlwaysOff);
-    baseforleftlabel->setHScrollBarMode (QScrollView::AlwaysOff);
+    baseforleftlabel->setVScrollBarMode (Q3ScrollView::AlwaysOff);
+    baseforleftlabel->setHScrollBarMode (Q3ScrollView::AlwaysOff);
     baseforleftlabel->setFixedHeight (26);
 
     connect (timeLineRightTopLabel, SIGNAL (valueChanged ()), this,SLOT (slotLabelclick ()));
 
-    QHBoxLayout * Layout8 = new QHBoxLayout (Layout3);
+    Q3HBoxLayout * Layout8 = new Q3HBoxLayout (Layout3);
     VScrollBar1 = new QScrollBar (privateLayoutWidget_2, "Scroll bar V");
-    VScrollBar1->setOrientation (QScrollBar::Vertical);
+    VScrollBar1->setOrientation (Qt::Vertical);
     VScrollBar1->setMinValue (0);
     VScrollBar1->setMaxValue (layerNum + 1);
 
@@ -200,7 +209,7 @@ CTimeLine::CTimeLine (QWidget * parent, const char *name, bool modal,WFlags fl)
     timeLineTable = new CTable (1, tableColNum, privateLayoutWidget_2, "timeLineTable");
 
     for (i = 0; i < tableColNum; i++) {
-        CTableItem * tabit = new CTableItem (timeLineTable, QTableItem::Never, "");
+        CTableItem * tabit = new CTableItem (timeLineTable, Q3TableItem::Never, "");
         if (i == 0) {
             tabit->ready = true;
             tabit->empty_keyframe = true;
@@ -215,11 +224,11 @@ CTimeLine::CTimeLine (QWidget * parent, const char *name, bool modal,WFlags fl)
     Layout8->addWidget (timeLineTable);
     Layout8->addWidget (VScrollBar1);
 
-    timeLineRightButtonGroup = new QButtonGroup (privateLayoutWidget_2, "timeLineRightButtonGroup");
+    timeLineRightButtonGroup = new Q3ButtonGroup (privateLayoutWidget_2, "timeLineRightButtonGroup");
     timeLineRightButtonGroup->setLineWidth (0);
     timeLineRightButtonGroup->setTitle (trUtf8 (""));
 
-    QHBoxLayout * Layout4 = new QHBoxLayout (timeLineRightButtonGroup);
+    Q3HBoxLayout * Layout4 = new Q3HBoxLayout (timeLineRightButtonGroup);
 
     ToolButton6 = new QToolButton (timeLineRightButtonGroup, "ToolButton6");
     ToolButton6->setGeometry (QRect (0, 0, 21, 21));
@@ -255,7 +264,7 @@ CTimeLine::CTimeLine (QWidget * parent, const char *name, bool modal,WFlags fl)
     Layout4->addWidget (totalTimeLabel);
     
 	HScrollBar1 = new QScrollBar (timeLineRightButtonGroup, "Scroll bar");
-    HScrollBar1->setOrientation (QScrollBar::Horizontal);
+    HScrollBar1->setOrientation (Qt::Horizontal);
     HScrollBar1->setMinimumWidth (width () - 50);
 
     connect (HScrollBar1, SIGNAL (valueChanged (int)), this, SLOT (slotTableHscrollmove (int)));
@@ -300,7 +309,7 @@ void CTimeLine::slotNewLayer ()
 
     int i, j;
     for (i = 0; i < tableColNum; i++) {
-        CTableItem * tabit = new CTableItem (timeLineTable, QTableItem::Never, "");
+        CTableItem * tabit = new CTableItem (timeLineTable, Q3TableItem::Never, "");
         if (i == 0) {
             tabit->ready = true;
             tabit->empty_keyframe = true;
@@ -420,7 +429,7 @@ void CTimeLine::slotLabelclick ()
 }
 
 /** this works when user click on listbox items */
-void CTimeLine::slotListViewClicked (QListViewItem * item)
+void CTimeLine::slotListViewClicked (Q3ListViewItem * item)
 {
         //QHeader* hed=timeLineTable->horizontalHeader ();//(,true);
         //hed->sectionClicked (0);
@@ -526,57 +535,59 @@ void CTimeLine::tableRefresh ()
 	CListViewItem *tmpListViewItem=(CListViewItem*)timeLineListbox->selectedItem();
 	int animX=dad->tl->layerFrames->at(tmpListViewItem->m_Row-1)->frames->last ()->tableItemNo;
 	int z=-1*tmpListViewItem->m_Row;
-		QCanvasItemList l=dad->slotCurrentView()->mainCanvas->allItems();
-		for (QCanvasItemList::Iterator it = l.begin (); it != l.end ();++it) {
-					if ((*it)->rtti () == 666 || (*it)->rtti () == 667) {		//if user clicked on def. scene rect. then dont select it.
-							continue;
-			}
-			switch((*it)->rtti()){
-				case QCanvasItem::Rtti_Ellipse:
-				{
-					CCanvasEllipse *oval=(CCanvasEllipse*)(*it);
-					if(oval->Row==z){
-						layerChanged=true;
-					}
-				}
-				break;
-				case QCanvasItem::Rtti_Line:
-				{
-					CCanvasLine *line=(CCanvasLine*)(*it);
-					if(line->Row==z)
-						layerChanged=true;
-				}
-				break;
-				case QCanvasItem::Rtti_Polygon:
-					
-				break;
-				case QCanvasItem::Rtti_PolygonalItem:
-				{
-					CPencilLine *poly=(CPencilLine*)(*it);
-					if(poly->Row==z)
-						layerChanged=true;
-				}
-				break;
-				case QCanvasItem::Rtti_Rectangle:
-				{
-					CCanvasRectangle *rect=(CCanvasRectangle*)(*it);
-					if(rect->Row==z)
-						layerChanged=true;
-				}
-				break;
-				case QCanvasItem::Rtti_Spline:
-				break;
-				case QCanvasItem::Rtti_Sprite:
-				break;
-				case QCanvasItem::Rtti_Text:
-				{
-					CCanvasText *text=(CCanvasText*)(*it);
-					if(text->Row==z)
-						layerChanged=true;
-				}
-				break;
+
+        Q3CanvasItemList l=dad->slotCurrentView()->mainCanvas->allItems();
+            for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it) {
+                if ((*it)->rtti () == 666 || (*it)->rtti () == 667) {		//if user clicked on def. scene rect. then dont select it.
+                    continue;
+                }
+                switch((*it)->rtti()){
+                case Q3CanvasItem::Rtti_Ellipse:
+                    {
+                        CCanvasEllipse *oval=(CCanvasEllipse*)(*it);
+                        if(oval->Row==z){
+                            layerChanged=true;
+                        }
+                    }
+                    break;
+                case Q3CanvasItem::Rtti_Line:
+                    {
+                        CCanvasLine *line=(CCanvasLine*)(*it);
+                        if(line->Row==z)
+                            layerChanged=true;
+                    }
+                    break;
+                case Q3CanvasItem::Rtti_Polygon:
+
+                    break;
+                case Q3CanvasItem::Rtti_PolygonalItem:
+                    {
+                        CPencilLine *poly=(CPencilLine*)(*it);
+                        if(poly->Row==z)
+                            layerChanged=true;
+                    }
+                    break;
+                case Q3CanvasItem::Rtti_Rectangle:
+                    {
+                        CCanvasRectangle *rect=(CCanvasRectangle*)(*it);
+                        if(rect->Row==z)
+                            layerChanged=true;
+                    }
+                    break;
+                case Q3CanvasItem::Rtti_Spline:
+                    break;
+                case Q3CanvasItem::Rtti_Sprite:
+                    break;
+                case Q3CanvasItem::Rtti_Text:
+                    {
+                        CCanvasText *text=(CCanvasText*)(*it);
+                        if(text->Row==z)
+                            layerChanged=true;
+                    }
+                    break;
 		}
-	}
+            }
+
 	if(layerChanged){
 		for(int i=0;i<animX;i++){
 			CTableItem *d = (CTableItem *) timeLineTable->item (tmpListViewItem->m_Row-1,i);

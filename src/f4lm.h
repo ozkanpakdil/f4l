@@ -21,21 +21,25 @@
 
 // include files for QT
 #include <qapplication.h>
-#include <qmainwindow.h>
-#include <qaction.h>
+#include <q3mainwindow.h>
+#include <Q3Action>
 #include <qworkspace.h>
 #include <qmenubar.h>
-#include <qtoolbar.h>
+#include <q3toolbar.h>
 #include <qstatusbar.h>
-#include <qwhatsthis.h>
-#include <qpopupmenu.h>
-#include <qaccel.h>
+#include <q3whatsthis.h>
+#include <q3popupmenu.h>
+#include <q3accel.h>
 #include <qtoolbutton.h>
 #include <qmessagebox.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 #include <qprinter.h>
 #include <qstring.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QEvent>
+#include <Q3ActionGroup>
 #include "cproperties.h"
 
 // forward declaration of the F4lm classes
@@ -53,7 +57,7 @@ class CTimeLine;
   * @author Özkan Pakdil
   * @version 0.1
   */
-class F4lmApp:public QMainWindow
+class F4lmApp:public Q3MainWindow
 {
     Q_OBJECT
 public:
@@ -81,11 +85,11 @@ public:
     CTimeLine * tl;
     CProperties * properties;
     CColorSwatches * pColorSwatches;
-    QDockWindow * propertiesDockableWindow;
-    QDockWindow * colorDialogDockableWindow;
-    QDockWindow * colorSwatchesDockableWindow;
-    QDockWindow * toolsDockableWindow;
-    QDockWindow * timeLineDockableWindow;
+    Q3DockWindow * propertiesDockableWindow;
+    Q3DockWindow * colorDialogDockableWindow;
+    Q3DockWindow * colorSwatchesDockableWindow;
+    Q3DockWindow * toolsDockableWindow;
+    Q3DockWindow * timeLineDockableWindow;
     QMap < int, QString > stringTable;
 
 protected:
@@ -400,7 +404,7 @@ private:
     void fillTheStringTable ();
 
 
-    /** initializes all QActions of the application */
+    /** initializes all Q3Actions of the application */
     void initActions ();
 
     /** initMenuBar creates the menu_bar and inserts the menuitems */
@@ -418,27 +422,27 @@ private:
 
 
     /** file_menu contains all items of the menubar entry "File" */
-    QPopupMenu * pFileMenu;
+    Q3PopupMenu * pFileMenu;
 
     /** edit_menu contains all items of the menubar entry "Edit" */
-    QPopupMenu * pEditMenu;
+    Q3PopupMenu * pEditMenu;
 
     /** view_menu contains all items of the menubar entry "View" */
-    QPopupMenu * pViewMenu;
+    Q3PopupMenu * pViewMenu;
 
     /** view_menu contains all items of the menubar entry "Help" */
-    QPopupMenu * pHelpMenu;
+    Q3PopupMenu * pHelpMenu;
 
     /** the window menu */
-    QPopupMenu * pWindowMenu;
+    Q3PopupMenu * pWindowMenu;
 
     /** Flash specific menus*/
-    QPopupMenu * pInsertMenu;
-    QPopupMenu * pModifyMenu;
-    QPopupMenu * pTextMenu;
-    QPopupMenu * pControlMenu;
+    Q3PopupMenu * pInsertMenu;
+    Q3PopupMenu * pModifyMenu;
+    Q3PopupMenu * pTextMenu;
+    Q3PopupMenu * pControlMenu;
 
-    QToolBar * fileToolbar;
+    Q3ToolBar * fileToolbar;
 
     /** pWorkspace is the MDI frame widget that handles MDI child widgets. Inititalized in
       * initView()
@@ -454,319 +458,319 @@ private:
     /** a list of all open documents. If the last window of a document gets closed, the installed eventFilter
      * removes this document from the list. The document list is checked for modified documents when the user
      * is about to close the application. */
-    QList < F4lmDoc > *pDocList;
+    QList < F4lmDoc* > pDocList;
 
-    QAction * fileNew;
-    QAction * fileNewFromTemplate;
-    QAction * fileOpen;
-    QAction * fileOpenAsLibrary;
-    QAction * fileSave;
-    QAction * fileSaveAs;
-    QAction * fileSaveAsTemplate;
-    QAction * fileRevert;
-    QAction * fileImport;
-    QAction * fileImportToLibrary;
-    QAction * fileExportMovie;
-    QAction * fileExportImage;
-    QAction * filePublishSetting;
-    QAction * filePublishPreview_Default;
-    QAction * filePublishPreview_Flash;
-    QAction * filePublishPreview_Html;
-    QAction * filePublishPreview_GIF;
-    QAction * filePublishPreview_JPEG;
-    QAction * filePublishPreview_PNG;
-    QAction * filePublishPreview_Projector;
-    QAction * filePublishPreview_Quicktime;
-    QAction * filePublish;
-    QAction * filePageSetup;
-    QAction * filePrintPreview;
-    QAction * fileRecentFile;
-    QAction * fileClose;
-    QAction * filePrint;
-    QAction * fileSend;
-    QAction * fileQuit;
+    Q3Action * fileNew;
+    Q3Action * fileNewFromTemplate;
+    Q3Action * fileOpen;
+    Q3Action * fileOpenAsLibrary;
+    Q3Action * fileSave;
+    Q3Action * fileSaveAs;
+    Q3Action * fileSaveAsTemplate;
+    Q3Action * fileRevert;
+    Q3Action * fileImport;
+    Q3Action * fileImportToLibrary;
+    Q3Action * fileExportMovie;
+    Q3Action * fileExportImage;
+    Q3Action * filePublishSetting;
+    Q3Action * filePublishPreview_Default;
+    Q3Action * filePublishPreview_Flash;
+    Q3Action * filePublishPreview_Html;
+    Q3Action * filePublishPreview_GIF;
+    Q3Action * filePublishPreview_JPEG;
+    Q3Action * filePublishPreview_PNG;
+    Q3Action * filePublishPreview_Projector;
+    Q3Action * filePublishPreview_Quicktime;
+    Q3Action * filePublish;
+    Q3Action * filePageSetup;
+    Q3Action * filePrintPreview;
+    Q3Action * fileRecentFile;
+    Q3Action * fileClose;
+    Q3Action * filePrint;
+    Q3Action * fileSend;
+    Q3Action * fileQuit;
 
      /////////////////Edit Menu
-    QAction * editUndo;
-    QAction * editRedo;
+    Q3Action * editUndo;
+    Q3Action * editRedo;
         //seperator
-    QAction * editCut;
-    QAction * editCopy;
-    QAction * editPaste;
-    QAction * editPasteinPlace;
-    QAction * editPasteSpecial;
-    QAction * editClear;
+    Q3Action * editCut;
+    Q3Action * editCopy;
+    Q3Action * editPaste;
+    Q3Action * editPasteinPlace;
+    Q3Action * editPasteSpecial;
+    Q3Action * editClear;
         //seperator
-    QAction * editDuplicate;
-    QAction * editSelectAll;
-    QAction * editDeselectAll;
+    Q3Action * editDuplicate;
+    Q3Action * editSelectAll;
+    Q3Action * editDeselectAll;
         //seperator
-    QAction * editCutFrames;
-    QAction * editCopyFrames;
-    QAction * editPasteFrames;
-    QAction * editClearFrames;
-    QAction * editSelectAllFrames;
+    Q3Action * editCutFrames;
+    Q3Action * editCopyFrames;
+    Q3Action * editPasteFrames;
+    Q3Action * editClearFrames;
+    Q3Action * editSelectAllFrames;
         //seperator
-    QAction * editEditSymbols;
-    QAction * editEditSelected;
-    QAction * editEditInPlace;
-    QAction * editEditAll;
+    Q3Action * editEditSymbols;
+    Q3Action * editEditSelected;
+    Q3Action * editEditInPlace;
+    Q3Action * editEditAll;
         //seperator
-    QAction * editPrefences;
-    QAction * editKeyboardShourtCuts;
-    QAction * editFontMapping;
+    Q3Action * editPrefences;
+    Q3Action * editKeyboardShourtCuts;
+    Q3Action * editFontMapping;
         
 	////////////////View Menu
     //Goto;
-    QAction * viewFirst;
-    QAction * viewPrevious;
-    QAction * viewNext;
-    QAction * viewLast;
+    Q3Action * viewFirst;
+    Q3Action * viewPrevious;
+    Q3Action * viewNext;
+    Q3Action * viewLast;
         //SEPARATOR
-    QAction * viewScenes;
+    Q3Action * viewScenes;
         //SEPARATOR
-    QAction * viewZoomIn;
-    QAction * viewZoomOut;
+    Q3Action * viewZoomIn;
+    Q3Action * viewZoomOut;
         //Magnification;
-    QAction * viewMagnification25;
-    QAction * viewMagnification50;
-    QAction * viewMagnification100;
-    QAction * viewMagnification200;
-    QAction * viewMagnification400;
-    QAction * viewMagnification800;
+    Q3Action * viewMagnification25;
+    Q3Action * viewMagnification50;
+    Q3Action * viewMagnification100;
+    Q3Action * viewMagnification200;
+    Q3Action * viewMagnification400;
+    Q3Action * viewMagnification800;
         //SEPARATOR
-    QAction * viewShowFrame;
-    QAction * viewShowAll;
+    Q3Action * viewShowFrame;
+    Q3Action * viewShowAll;
         //SEPARATOR
-    QActionGroup * viewAction;
-    QAction * viewOutlines;
-    QAction * viewFast;
-    QAction * viewAntialias;
-    QAction * viewAntialiasText;
+    Q3ActionGroup * viewAction;
+    Q3Action * viewOutlines;
+    Q3Action * viewFast;
+    Q3Action * viewAntialias;
+    Q3Action * viewAntialiasText;
         //SEPARATOR
-    QAction * viewTimeline;
-    QAction * viewWorkArea;
+    Q3Action * viewTimeline;
+    Q3Action * viewWorkArea;
         //SEPARATOR
-    QAction * viewRulers;
+    Q3Action * viewRulers;
         //Grid;
-    QAction * viewShowGrid;
-    QAction * viewSnaptoGrid;
-    QAction * viewEditGrid;
+    Q3Action * viewShowGrid;
+    Q3Action * viewSnaptoGrid;
+    Q3Action * viewEditGrid;
         //Guides;
-    QAction * viewShowGuides;
-    QAction * viewLockGuides;
-    QAction * viewSnaptoGuides;
-    QAction * viewEditGuides;
+    Q3Action * viewShowGuides;
+    Q3Action * viewLockGuides;
+    Q3Action * viewSnaptoGuides;
+    Q3Action * viewEditGuides;
         //SEPARATOR
-    QAction * viewSnaptoPixels;
-    QAction * viewSnaptoObjects;
+    Q3Action * viewSnaptoPixels;
+    Q3Action * viewSnaptoObjects;
         //SEPARATOR
-    QAction * viewShowShapeHints;
+    Q3Action * viewShowShapeHints;
         //SEPARATOR
-    QAction * viewHideEdges;
-    QAction * viewHidePanels;
-    QAction * viewToolBar;
-    QAction * viewStatusBar;
+    Q3Action * viewHideEdges;
+    Q3Action * viewHidePanels;
+    Q3Action * viewToolBar;
+    Q3Action * viewStatusBar;
 
         ////////////////////insert Menu
-    QAction * insertConverttoSymbol;
-    QAction * insertNewSymbol;
+    Q3Action * insertConverttoSymbol;
+    Q3Action * insertNewSymbol;
         //SEPARATOR
-    QAction * insertLayer;
-    QAction * insertLayerFolder;
-    QAction * insertMotionGuide;
+    Q3Action * insertLayer;
+    Q3Action * insertLayerFolder;
+    Q3Action * insertMotionGuide;
         //SEPARATOR
-    QAction * insertFrame;
-    QAction * insertRemoveFrames;
+    Q3Action * insertFrame;
+    Q3Action * insertRemoveFrames;
         //SEPARATOR
-    QAction * insertKeyframe;
-    QAction * insertBlankKeyframe;
-    QAction * insertClearKeyframe;
+    Q3Action * insertKeyframe;
+    Q3Action * insertBlankKeyframe;
+    Q3Action * insertClearKeyframe;
         //SEPARATOR
-    QAction * insertCreateMotionTween;
+    Q3Action * insertCreateMotionTween;
         //SEPARATOR
-    QAction * insertScene;
-    QAction * insertRemoveScene;
+    Q3Action * insertScene;
+    Q3Action * insertRemoveScene;
 
         ////////////////////////modify menu
-    QAction * modifyLayer;
-    QAction * modifyScene;
-    QAction * modifyDocument;
+    Q3Action * modifyLayer;
+    Q3Action * modifyScene;
+    Q3Action * modifyDocument;
         //seperator
-    QAction * modifySmooth;
-    QAction * modifyStraighten;
-    QAction * modifyOptimize;
+    Q3Action * modifySmooth;
+    Q3Action * modifyStraighten;
+    Q3Action * modifyOptimize;
         // Shape
-    QAction * modifyConvertLinestoFills;
-    QAction * modifyExpandFill;
-    QAction * modifySoftenFillEdges;
+    Q3Action * modifyConvertLinestoFills;
+    Q3Action * modifyExpandFill;
+    Q3Action * modifySoftenFillEdges;
         //seperator
-    QAction * modifyAddShapeHint;
-    QAction * modifyRemoveAllHints;
+    Q3Action * modifyAddShapeHint;
+    Q3Action * modifyRemoveAllHints;
         //seperator
-    QAction * modifySwapSymbol;
-    QAction * modifyDuplicateSymbol;
+    Q3Action * modifySwapSymbol;
+    Q3Action * modifyDuplicateSymbol;
         //seperator
-    QAction * modifySwapBitmap;
-    QAction * modifyTraceBitmap;
+    Q3Action * modifySwapBitmap;
+    Q3Action * modifyTraceBitmap;
         //seperator
         // Transform
-    QAction * modifyFreeTransform;
-    QAction * modifyDistort;
-    QAction * modifyEnvelope;
-    QAction * modifyScale;
-    QAction * modifyRotateandSkew;
-    QAction * modifyScaleandRotate;
+    Q3Action * modifyFreeTransform;
+    Q3Action * modifyDistort;
+    Q3Action * modifyEnvelope;
+    Q3Action * modifyScale;
+    Q3Action * modifyRotateandSkew;
+    Q3Action * modifyScaleandRotate;
         //seperator
-    QAction * modifyRotate90CW;
-    QAction * modifyRotate90CCW;
+    Q3Action * modifyRotate90CW;
+    Q3Action * modifyRotate90CCW;
         //seperator
-    QAction * modifyFlipVertical;
-    QAction * modifyFlipHorizontal;
+    Q3Action * modifyFlipVertical;
+    Q3Action * modifyFlipHorizontal;
         //seperator
-    QAction * modifyRemoveTransform;
+    Q3Action * modifyRemoveTransform;
         // Arrange
-    QAction * modifyBringtoFront;
-    QAction * modifyBringForward;
-    QAction * modifySendBackward;
-    QAction * modifySendtoBack;
+    Q3Action * modifyBringtoFront;
+    Q3Action * modifyBringForward;
+    Q3Action * modifySendBackward;
+    Q3Action * modifySendtoBack;
         //seperator
-    QAction * modifyLock;
-    QAction * modifyUnlockAll;
+    Q3Action * modifyLock;
+    Q3Action * modifyUnlockAll;
         //seperator
         // Frames
-    QAction * modifyReverse;
-    QAction * modifySynchronizeSymbols;
-    QAction * modifyConverttoKeyframes;
-    QAction * modifyConverttoBlankKeyframes;
+    Q3Action * modifyReverse;
+    Q3Action * modifySynchronizeSymbols;
+    Q3Action * modifyConverttoKeyframes;
+    Q3Action * modifyConverttoBlankKeyframes;
         //seperator
-    QAction * modifyGroup;
-    QAction * modifyUngroup;
+    Q3Action * modifyGroup;
+    Q3Action * modifyUngroup;
         //seperator
-    QAction * modifyBreakApart;
-    QAction * modifyDistributetoLayers;
+    Q3Action * modifyBreakApart;
+    Q3Action * modifyDistributetoLayers;
 
      ///////////////////////text menu
      // Font
-    QAction * textFontFace;
+    Q3Action * textFontFace;
         // Size
-    QAction * text8;
-    QAction * text9;
-    QAction * text10;
-    QAction * text11;
-    QAction * text12;
-    QAction * text14;
-    QAction * text18;
-    QAction * text24;
-    QAction * text36;
-    QAction * text48;
-    QAction * text72;
-    QAction * text96;
-    QAction * text120;
+    Q3Action * text8;
+    Q3Action * text9;
+    Q3Action * text10;
+    Q3Action * text11;
+    Q3Action * text12;
+    Q3Action * text14;
+    Q3Action * text18;
+    Q3Action * text24;
+    Q3Action * text36;
+    Q3Action * text48;
+    Q3Action * text72;
+    Q3Action * text96;
+    Q3Action * text120;
         // Style
-    QAction * textPlain;
+    Q3Action * textPlain;
         //seperator
-    QAction * textBold;
-    QAction * textItalic;
+    Q3Action * textBold;
+    Q3Action * textItalic;
         //seperator
-    QAction * textSubscript;
-    QAction * textSuperscript;
+    Q3Action * textSubscript;
+    Q3Action * textSuperscript;
         //seperator
         // Align
-    QAction * textAlignLeft;
-    QAction * textAlignCenter;
-    QAction * textAlignRight;
-    QAction * textJustify;
+    Q3Action * textAlignLeft;
+    Q3Action * textAlignCenter;
+    Q3Action * textAlignRight;
+    Q3Action * textJustify;
         // Tracking
-    QAction * textIncrease;
-    QAction * textDecrease;
+    Q3Action * textIncrease;
+    Q3Action * textDecrease;
         //seperator
-    QAction * textReset;
+    Q3Action * textReset;
         //seperator
-    QAction * textScrollable;
+    Q3Action * textScrollable;
 
      ////////////////////control menu
-    QAction * controlPlay;
-    QAction * controlRewind;
-    QAction * controlGoToEnd;
+    Q3Action * controlPlay;
+    Q3Action * controlRewind;
+    Q3Action * controlGoToEnd;
         //seperator
-    QAction * controlStepForward;
-    QAction * controlStepBackward;
+    Q3Action * controlStepForward;
+    Q3Action * controlStepBackward;
         //seperator
-    QAction * controlTestMovie;
-    QAction * controlDebugMovie;
-    QAction * controlTestScene;
+    Q3Action * controlTestMovie;
+    Q3Action * controlDebugMovie;
+    Q3Action * controlTestScene;
         //seperator
-    QAction * controlLoopPlayback;
-    QAction * controlPlayAllScenes;
+    Q3Action * controlLoopPlayback;
+    Q3Action * controlPlayAllScenes;
         //seperator
-    QAction * controlEnableSimpleFrameActions;
-    QAction * controlEnableSimpleButtons;
-    QAction * controlMuteSounds;
-    QAction * controlEnableLivePreview;
+    Q3Action * controlEnableSimpleFrameActions;
+    Q3Action * controlEnableSimpleButtons;
+    Q3Action * controlMuteSounds;
+    Q3Action * controlEnableLivePreview;
 
      ///////////////window menu
-    QActionGroup * windowAction;
-    QAction * windowNewWindow;
-    QAction * windowTile;
-    QAction * windowCascade;
-    QAction * windowProperties;
-    QAction * windowTimeLine;
-    QAction * windowTools;
+    Q3ActionGroup * windowAction;
+    Q3Action * windowNewWindow;
+    Q3Action * windowTile;
+    Q3Action * windowCascade;
+    Q3Action * windowProperties;
+    Q3Action * windowTimeLine;
+    Q3Action * windowTools;
         //seperator
         // Toolbars
-        //QAction *windowMain;   |these two option taken from view actions
-        //QAction *windowStatus; |
-    QAction * windowController;
-    QAction * windowAnswers;
+        //Q3Action *windowMain;   |these two option taken from view actions
+        //Q3Action *windowStatus; |
+    Q3Action * windowController;
+    Q3Action * windowAnswers;
         //seperator
-    QAction * windowAlign;
-    QAction * windowColorMixer;
-    QAction * windowColorSwatches;
-    QAction * windowInfo;
-    QAction * windowScene;
-    QAction * windowTransform;
+    Q3Action * windowAlign;
+    Q3Action * windowColorMixer;
+    Q3Action * windowColorSwatches;
+    Q3Action * windowInfo;
+    Q3Action * windowScene;
+    Q3Action * windowTransform;
         //seperator
-    QAction * windowActions;
-    QAction * windowDebugger;
-    QAction * windowMovieExplorer;
-    QAction * windowReference;
-    QAction * windowOutput;
+    Q3Action * windowActions;
+    Q3Action * windowDebugger;
+    Q3Action * windowMovieExplorer;
+    Q3Action * windowReference;
+    Q3Action * windowOutput;
         //seperator
-    QAction * windowAccessibility;
-    QAction * windowComponents;
-    QAction * windowComponentParameters;
-    QAction * windowLibrary;
+    Q3Action * windowAccessibility;
+    Q3Action * windowComponents;
+    Q3Action * windowComponentParameters;
+    Q3Action * windowLibrary;
         // Common Libraries
-    QAction * windowlibraries;
+    Q3Action * windowlibraries;
         //seperator
         // Panel Sets
-    QAction * windowPanelSets;
-    QAction * windowSavePanelLayout;
-    QAction * windowCloseAllPanels;
+    Q3Action * windowPanelSets;
+    Q3Action * windowSavePanelLayout;
+    Q3Action * windowCloseAllPanels;
 
         ///////////////////////help menu
-    QAction * helpUsingF4l;
-    QAction * helpActionScriptDictionary;
+    Q3Action * helpUsingF4l;
+    Q3Action * helpActionScriptDictionary;
         //seperator
-    QAction * helpF4lExchange;
-    QAction * helpManageExtensions;
-    QAction * helpSamples;
+    Q3Action * helpF4lExchange;
+    Q3Action * helpManageExtensions;
+    Q3Action * helpSamples;
         //seperator
-    QAction * helpF4lSupportCenter;
-    QAction * helpRegisterF4l;
+    Q3Action * helpF4lSupportCenter;
+    Q3Action * helpRegisterF4l;
         //seperator
-    QAction * helpAboutApp;
+    Q3Action * helpAboutApp;
 
 };
 
-class CFilePreview:public QLabel, public QFilePreview
+class CFilePreview:public QLabel, public Q3FilePreview
 {
 public:
     CFilePreview (QWidget * parent = 0):QLabel (parent)
     {}
 
-    void previewUrl (const QUrl & u);
+    void previewUrl (const Q3Url & u);
 };
 
 #endif

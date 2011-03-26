@@ -20,16 +20,16 @@
 #ifndef CCANVASELLIPSE_H
 #define CCANVASELLIPSE_H
 
-#include <qcanvas.h>
+#include <q3canvas.h>
 
 /**
 for knowing canvas object row and column number.
 
 @author Ökan Pakdil
 */
-class CCanvasEllipse:public QCanvasEllipse{
+class CCanvasEllipse:public Q3CanvasEllipse{
 public:
-    CCanvasEllipse(int width, int height, QCanvas * canvas );
+    CCanvasEllipse(int width, int height, Q3Canvas * canvas );
 
     ~CCanvasEllipse();
 	int Row;///this will be the Z dimension for object

@@ -26,12 +26,14 @@
 // include files for QT
 #include <qobject.h>
 #include <qstring.h>
-#include <qtl.h>
+#include <q3tl.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 #include "clayer.h"
 
 // forward declaration of the F4lm classes
 class F4lmView;
-class QProcess;
+class Q3Process;
 
 /**	F4lmDoc provides a document object for a document-view model.
   *
@@ -121,8 +123,8 @@ public:
 
   /** returns the title of the document */
   const QString & title () const;
-  QPtrList < CLayer > *pLayerList;
-QProcess *proc;
+  Q3PtrList < CLayer > *pLayerList;
+Q3Process *proc;
 QStringList procOut;
 
 
@@ -143,7 +145,7 @@ private:
   QString m_filename;
 
   /** the list of the views currently connected to the document */
-  QPtrList < F4lmView > *pViewList;
+  Q3PtrList < F4lmView > *pViewList;
 
 };
 #endif // F4LMDOC_H

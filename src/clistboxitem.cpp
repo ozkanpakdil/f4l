@@ -22,11 +22,11 @@
 //#include <iostream.h>
 #include <qnamespace.h>
 
-CListViewItem::CListViewItem (QListView * parent, QString label1,
+CListViewItem::CListViewItem (Q3ListView * parent, QString label1,
                   QString label2, QString label3, QString label4, QString label5,
                   QString label6, QString label7, QString label8)
         :
-        QListViewItem (parent, label1, label2, label3, label4, label5, label6, label7,
+        Q3ListViewItem (parent, label1, label2, label3, label4, label5, label6, label7,
                    label8)
 {
         //      cout<<listBox()->name()<<endl;

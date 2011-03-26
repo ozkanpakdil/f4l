@@ -19,16 +19,16 @@
 #ifndef CLISTVIEWITEM_H
 #define CLISTVIEWITEM_H
 
-#include <qlistview.h>
+#include <q3listview.h>
 
 /** used for showing pixmaps in items inside timeLine's listview.
   *@author özkan pakdil
   */
-class CListViewItem:public /*QObject, */ QListViewItem
+class CListViewItem:public /*QObject, */ Q3ListViewItem
 {
         //Q_OBJECT
 public:
-    CListViewItem (QListView * parent = 0, QString label1 = QString::null,
+    CListViewItem (Q3ListView * parent = 0, QString label1 = QString::null,
                QString label2 = QString::null, QString label3 =
                    QString::null, QString label4 =
                    QString::null, QString label5 =

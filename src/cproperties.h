@@ -19,7 +19,7 @@
 #define CPROPERTIES_H
 
 #include <qwidget.h>
-#include <qtextedit.h>
+#include <q3textedit.h>
 #include "ccolorswatches.h"
 #include "cfontproperties.h"
 #include "cbrushproperties.h"

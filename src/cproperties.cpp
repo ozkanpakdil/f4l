@@ -17,11 +17,13 @@
 
 #include "cproperties.h"
 #include <qlayout.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
 
 CProperties::CProperties (QWidget * parent, const char *name):
         QWidget (parent, name)
 {
-    QVBoxLayout *topLayout = new QVBoxLayout (this);
+    Q3VBoxLayout *topLayout = new Q3VBoxLayout (this);
     /* txt=new QTextEdit(this);
        txt->append("alo"); */
     fontProperties = new CFontProperties (this);

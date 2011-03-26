@@ -25,6 +25,10 @@
 #include <qlayout.h>
 #include <qstringlist.h>
 #include <qfontdatabase.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3ValueList>
+#include <Q3HBoxLayout>
 
 /**this class used for properties part of GUI at bottom. when user click on text tool from tools in properties part should show kind of Font peoperties.
   *@author Özkan Pakdil
@@ -58,7 +62,7 @@ Q_OBJECT public:
     QStringList familyNames;
     QFontDatabase fdb;
     QStringList scriptNames;
-    QValueList < int >scriptScripts;
+    Q3ValueList < int >scriptScripts;
     QStringList scriptSamples;
     bool usingStandardSizes;
     QString family;
@@ -67,11 +71,11 @@ Q_OBJECT public:
     QString size;
 
 protected:
-    QHBoxLayout * layout15;
-    QVBoxLayout *layout10;
-    QVBoxLayout *layout11;
-    QVBoxLayout *layout12;
-    QVBoxLayout *layout13;
+    Q3HBoxLayout * layout15;
+    Q3VBoxLayout *layout10;
+    Q3VBoxLayout *layout11;
+    Q3VBoxLayout *layout12;
+    Q3VBoxLayout *layout13;
 
 public slots:
     virtual void languageChange ();

@@ -20,7 +20,9 @@
 #define CTABLE_H
 
 #include <qwidget.h>
-#include <qtable.h>
+#include <q3table.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 
 class CTimeLine;
 
@@ -29,7 +31,7 @@ class CTimeLine;
   bu table class i sayesinde table daki secim islemleri ayarlanacak. click eventleri yakalanip
   flash daki benzeri sekile donusturulecek. toplu secim ve toplu move islemleri buradan islenecek
   */
-class CTable:public QTable
+class CTable:public Q3Table
 {
     Q_OBJECT
 public:

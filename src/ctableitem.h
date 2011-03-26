@@ -18,15 +18,15 @@
 #ifndef CTABLEITEM_H
 #define CTABLEITEM_H
 
-#include <qtable.h>
+#include <q3table.h>
 
 /**for canvas status representation
   *@author özkan pakdil
   */
-class CTableItem:public QTableItem
+class CTableItem:public Q3TableItem
 {
 public:
-        CTableItem (QTable * parent, EditType et, const QString & txt);	//:QTableItem(parent,et,txt){}
+        CTableItem (Q3Table * parent, EditType et, const QString & txt);	//:QTableItem(parent,et,txt){}
     ~CTableItem ();
 
     void paint (QPainter * p, const QColorGroup & cg, const QRect & cr,

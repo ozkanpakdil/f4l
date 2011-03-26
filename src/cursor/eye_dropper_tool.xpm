@@ -1,5 +1,5 @@
 /* XPM */
-static char * eye_dropper_tool_xpm[] = {
+static char const * eye_dropper_tool_xpm[] = {
 "16 15 14 1",
 " 	c None",
 ".	c #333366",

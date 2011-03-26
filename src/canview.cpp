@@ -31,10 +31,18 @@
 
 #include <stdlib.h>
 #include <qimage.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 #include <qbitmap.h>
 #include <qpainter.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
+//Added by qt3to4:
+#include <Q3PointArray>
+#include <QDropEvent>
+#include <QPaintEvent>
+#include <QPixmap>
+#include <QMouseEvent>
+#include <QKeyEvent>
+#include <QEvent>
 
 #include "cursor/hand_cursor.xpm"
 #include "cursor/hand_cursor_down.xpm"
@@ -53,11 +61,11 @@
 #include "cursor/brush_tool.xpm"
 #include "cursor/eraser_tool.xpm"
 
-canview::canview (QCanvas * canvas, QWidget * parent, const char *name)
-    :QCanvasView (canvas, parent, name)
+canview::canview (Q3Canvas * canvas, QWidget * parent, const char *name)
+    :Q3CanvasView (canvas, parent, name)
 {
   setFocus ();
-  setFocusPolicy (QWidget::StrongFocus);
+  setFocusPolicy (Qt::StrongFocus);
   dad = (F4lmView *) parent;
   z = 0;
 
@@ -92,7 +100,7 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
 {
   butPos = true;
 
-  if (e->button () == LeftButton)
+  if (e->button () == Qt::LeftButton)
   {
     cenX = e->x ();
     cenY = e->y ();
@@ -120,21 +128,11 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
         if (selectionRect == NULL)
         {
           QPoint p = inverseWorldMatrix ().map (e->pos ());
-          QCanvasItemList l = canvas ()->collisions (p);
+          Q3CanvasItemList l = canvas ()->collisions (p);
           //          qDebug("cou: %d",l.count());
 
           if (l.count () <= 1)
           {
-            for (QCanvasItemList::Iterator mit =
-                   mulSelectedRects.begin ();
-                 mit != mulSelectedRects.end (); ++mit)
-            {
-              if (mit != NULL)
-              {
-                //(*mit)->hide ();      //delete *mit;
-                //qDebug("selRTTI : %d",(*mit)->rtti());
-              }
-            }
             //qDebug("mulr: %d",mulSelectedRects.count());
             mulSelectedRects.clear ();
             mulSelect.clear ();
@@ -142,11 +140,11 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
           if (l.count () <= 1)
           {
             selectionRect = new CSceneRect (QRect (cenX, cenY, 0, 0), canvas ());
-            selectionRect->setPen (Qt::black);
+            selectionRect->setPen (QPen( Qt::black ) );
             selectionRect->setZ (z);
             selectionRect->show ();
           }
-          for (QCanvasItemList::Iterator it = l.begin ();
+          for (Q3CanvasItemList::Iterator it = l.begin ();
                it != l.end (); ++it)
           {
             if ((*it)->rtti () == 666 || (*it)->rtti () == 667)
@@ -203,7 +201,7 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
           penShape->setBrush (dad->defObjCOLOR);
           penShape->setZ (z);
           penShape->show ();
-          spolyline = QPointArray (12);
+          spolyline = Q3PointArray (12);
           //spolyline[0]=spolyline[1]=spolyline[2]=spolyline[3]=/*contentsToViewport*/(e->pos());
           for (int i = 0; i < 12; i++)
             spolyline[i] = e->pos ();
@@ -333,8 +331,8 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
     case 11:		//FreeTransformTool;
       {
         QPoint p = inverseWorldMatrix ().map (e->pos ());
-        QCanvasItemList l = canvas ()->collisions (p);
-        for (QCanvasItemList::Iterator it = l.begin (); it != l.end ();
+        Q3CanvasItemList l = canvas ()->collisions (p);
+        for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();
              ++it)
         {
           if ((*it)->rtti () == 666)
@@ -363,12 +361,12 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
     case 14:		//PaintBucketTool;
       {
         QPoint p = inverseWorldMatrix ().map (e->pos ());
-        QCanvasItemList l = canvas ()->collisions (p);
+        Q3CanvasItemList l = canvas ()->collisions (p);
         //qDebug("eleman sayisi %d",l.count());
         if(l.count()<=1) break;
-        for (QCanvasItemList::Iterator it = l.begin (); it != l.end (); ++it)
+        for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end (); ++it)
         {
-          if(it==NULL) break;
+          //if(it==NULL) break;
           if ((*it)->rtti () == 666)
           {		//if user clicked on def. scene rect. then dont select it.
             continue;
@@ -377,17 +375,17 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
           //qDebug( "bu objeye tikladin %d ",moving->rtti() );
         }
         if (moving)
-          if (moving->rtti () == QCanvasItem::Rtti_Ellipse ||
-              moving->rtti () == QCanvasItem::Rtti_Line ||
-              moving->rtti () == QCanvasItem::Rtti_Polygon ||
-              moving->rtti () == QCanvasItem::Rtti_PolygonalItem ||
-              moving->rtti () == QCanvasItem::Rtti_Rectangle ||
-              moving->rtti () == QCanvasItem::Rtti_Spline)
+          if (moving->rtti () == Q3CanvasItem::Rtti_Ellipse ||
+              moving->rtti () == Q3CanvasItem::Rtti_Line ||
+              moving->rtti () == Q3CanvasItem::Rtti_Polygon ||
+              moving->rtti () == Q3CanvasItem::Rtti_PolygonalItem ||
+              moving->rtti () == Q3CanvasItem::Rtti_Rectangle ||
+              moving->rtti () == Q3CanvasItem::Rtti_Spline)
           {
-            ((QCanvasPolygonalItem *) moving)->setPen (dad->defObjCOLOR);
-            ((QCanvasPolygonalItem *) moving)->setBrush (dad->defObjCOLOR);
+            ((Q3CanvasPolygonalItem *) moving)->setPen (dad->defObjCOLOR);
+            ((Q3CanvasPolygonalItem *) moving)->setBrush (dad->defObjCOLOR);
           }
-        if (moving->rtti () == QCanvasItem::Rtti_Text)
+        if (moving->rtti () == Q3CanvasItem::Rtti_Text)
         {
           ((CCanvasText *) moving)->setColor (dad->defObjCOLOR);
 	  //qDebug(((CCanvasText *) moving)->text ());
@@ -398,7 +396,7 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
     case 15:		//EyedropperTool;
       {
         QPoint p = e->globalPos ();
-        QWidget *desktop = QApplication::desktop ();
+        QWidget *desktop =(QWidget*) QApplication::desktop ();
         QPixmap pm =
           QPixmap::grabWindow (desktop->winId (), p.x (), p.y (), 1, 1);
         QImage i = pm.convertToImage ();
@@ -413,8 +411,8 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
         //              QKeyEvent *s=new QKeyEvent(QEvent::KeyPress,Qt::Key_Delete,0,0);
         //              keyPressEvent(s);
         QPoint p = inverseWorldMatrix ().map (e->pos ());
-        QCanvasItemList l = canvas ()->collisions (p);
-        for (QCanvasItemList::Iterator it = l.begin (); it != l.end ();
+        Q3CanvasItemList l = canvas ()->collisions (p);
+        for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();
              ++it)
         {
           if ((*it)->rtti () == 666)
@@ -436,7 +434,7 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
       setCursor (handCursorDown);
       break;
     case 18:		//ZoomTool;
-      QWMatrix m = worldMatrix ();
+      QMatrix m = worldMatrix ();
       m.scale (1.4, 1.4);
       QPoint p = inverseWorldMatrix ().map (e->pos ());
       int x = (p.x ()), y = (p.y ());
@@ -445,9 +443,9 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
       break;
     }
   }
-  if (e->button () == RightButton && dad->defObjID != 18)
+  if (e->button () == Qt::RightButton && dad->defObjID != 18)
   {
-    QPopupMenu *renkicin = new QPopupMenu (this);
+    Q3PopupMenu *renkicin = new Q3PopupMenu (this);
     /*          renkicin->insertItem ("Color chooser", this, SLOT (finish_element ()));
        renkicin->insertItem ("Red", this, SLOT (makeElementRed ()));
        renkicin->insertItem ("Green", this, SLOT (makeElementGreen ()));
@@ -489,15 +487,15 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
     //inverseWorldMatrix().map()
     renkicin->popup (contentsToViewport (e->pos ()));
     renkicin->exec ();
-    renkicin->~QPopupMenu ();
+    renkicin->~Q3PopupMenu ();
   }
-  if (e->button () == RightButton)
+  if (e->button () == Qt::RightButton)
   {
     switch (dad->defObjID)
     {
     case 18:		//zoom tool selected
       {
-        QWMatrix m = worldMatrix ();
+        QMatrix m = worldMatrix ();
         m.scale (0.7, 0.7);
 
         QPoint p = inverseWorldMatrix ().map (e->pos ());
@@ -530,8 +528,8 @@ void canview::contentsMouseMoveEvent (QMouseEvent * e)
         {
           canvas ()->setChanged (QRect (contentsX (), contentsY (), contentsWidth (), contentsHeight ()));	//////////this line killing the performance!!!!!!!but clearing the scene :)
           QPoint p = inverseWorldMatrix ().map (e->pos ());
-          QCanvasItemList l = mulSelect;
-          for (QCanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
+          Q3CanvasItemList l = mulSelect;
+          for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
           {
             if ((*it)->rtti () == 666 || (*it)->rtti () == 667)
             {		//if user clicked on def. scene rect. then dont select it.
@@ -543,7 +541,7 @@ void canview::contentsMouseMoveEvent (QMouseEvent * e)
           }
           //moving_start = p;
           l = mulSelectedRects;
-          for (QCanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
+          for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
           {
             moving = *it;
             if ((*it)->rtti () == 667)
@@ -677,8 +675,8 @@ void canview::contentsMouseReleaseEvent (QMouseEvent * e)
     {
       /////////////here will be some kind of multiple selection action
       mulSelect = selectionRect->collisions (false);
-      QCanvasItemList l = mulSelect;
-      for (QCanvasItemList::Iterator it = l.begin (); it != l.end (); ++it)
+      Q3CanvasItemList l = mulSelect;
+      for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end (); ++it)
       {
         if ((*it)->rtti () == 666)
         {		//if user clicked on def. scene rect. then dont select it.
@@ -697,8 +695,8 @@ void canview::contentsMouseReleaseEvent (QMouseEvent * e)
     }
     else
     {
-      QCanvasItemList l = canvas ()->allItems ();
-      for (QCanvasItemList::Iterator it = l.begin (); it != l.end (); ++it)
+      Q3CanvasItemList l = canvas ()->allItems ();
+      for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end (); ++it)
       {
         if ((*it)->rtti () == 667)
         {
@@ -739,7 +737,7 @@ void canview::contentsMouseReleaseEvent (QMouseEvent * e)
     break;
   case 9:			//PencilTool;
     {
-      QPointArray tempArr = QPointArray (pPolylineTemp.count ());
+      Q3PointArray tempArr = Q3PointArray (pPolylineTemp.count ());
       int i = 0;
       for (QPoint * it = pPolylineTemp.first (); it;it = pPolylineTemp.next ())
       {
@@ -753,7 +751,7 @@ void canview::contentsMouseReleaseEvent (QMouseEvent * e)
   case 10:			//BrushTool;
     {
       canvas ()->setAllChanged ();
-      QPointArray tempArr = QPointArray (pPolylineTemp.count ());
+      Q3PointArray tempArr = Q3PointArray (pPolylineTemp.count ());
       int i = 0;
       for (QPoint * it = pPolylineTemp.first (); it;it = pPolylineTemp.next ())
       {
@@ -920,23 +918,23 @@ void canview::contentsMouseDoubleClickEvent (QMouseEvent * e)
   {
     moving = 0;
     QPoint p = inverseWorldMatrix ().map (e->pos ());
-    QCanvasItemList l = canvas ()->collisions (p);
-    for (QCanvasItemList::Iterator it = l.begin (); it != l.end (); ++it)
+    Q3CanvasItemList l = canvas ()->collisions (p);
+    for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end (); ++it)
     {
-      if ((*it)->rtti () == QCanvasItem::Rtti_Text)
+      if ((*it)->rtti () == Q3CanvasItem::Rtti_Text)
       {
         moving = *it;
       }
     }
-    if (moving != NULL && moving->rtti () == QCanvasItem::Rtti_Text)
+    if (moving != NULL && moving->rtti () == Q3CanvasItem::Rtti_Text)
     {
       //moving->hide();
       text = (CCanvasText *) moving;
       textBox->show ();
       //textBox=new CTextEditForTextTool(this,"textboxforEnteringText");
       textBox->move (contentsToViewport (e->pos ()));
-      textBox->setColor (((QCanvasText *) moving)->color ());
-      textBox->setText (((QCanvasText *) moving)->text ());
+      textBox->setColor (((Q3CanvasText *) moving)->color ());
+      textBox->setText (((Q3CanvasText *) moving)->text ());
 
       //textBox->adjustSize();
       textBox->setFocus ();
@@ -959,8 +957,8 @@ void canview::keyPressEvent (QKeyEvent * e)
   case Qt::Key_Delete:
     if (dad->defObjID)
     {
-      QCanvasItemList l = mulSelect;
-      for (QCanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
+      Q3CanvasItemList l = mulSelect;
+      for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
       {
         if ((*it)->rtti () == 666 || (*it)->rtti () == 667)
         {		//if user clicked on def. scene rect. then dont select it.
@@ -972,7 +970,7 @@ void canview::keyPressEvent (QKeyEvent * e)
       }
       //moving_start = p;
       l = mulSelectedRects;
-      for (QCanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
+      for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
       {
         moving = *it;
         if ((*it)->rtti () == 667)
@@ -991,5 +989,5 @@ void canview::keyPressEvent (QKeyEvent * e)
 
 void canview::paintEvent (QPaintEvent * e)
 {
-  QCanvasView::paintEvent (e);
+  Q3CanvasView::paintEvent (e);
 }

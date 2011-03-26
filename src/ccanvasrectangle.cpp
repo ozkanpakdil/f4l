@@ -19,8 +19,8 @@
  ***************************************************************************/
 #include "ccanvasrectangle.h"
 
-CCanvasRectangle::CCanvasRectangle(int x, int y, int width, int height, QCanvas * canvas)
- : QCanvasRectangle(x, y, width, height, canvas)
+CCanvasRectangle::CCanvasRectangle(int x, int y, int width, int height, Q3Canvas * canvas)
+ : Q3CanvasRectangle(x, y, width, height, canvas)
 {
 }
 

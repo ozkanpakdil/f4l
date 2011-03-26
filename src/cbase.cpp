@@ -17,8 +17,8 @@
 
 #include "cbase.h"
 
-CBase::CBase (QWidget * parent, const char *name, WFlags f)
-:QScrollView (parent, name, f)
+CBase::CBase (QWidget * parent, const char *name, Qt::WFlags f)
+:Q3ScrollView (parent, name, f)
 {
 }
 

@@ -24,6 +24,9 @@
 #include <qpainter.h>
 #include <qsize.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QPaintEvent>
 #include "cursor/outline_pic.xpm"
 #include "cursor/goz_pic.xpm"
 #include "cursor/kilit_pic.xpm"
@@ -159,7 +162,7 @@ void CLabel::mousePressEvent (QMouseEvent * e)
         //cout<<e->x()<<endl;    setFocusPolicy(QWidget::StrongFocus);
         // qDebug(QString::number(e->x()));
     valueChanged ();
-    if (e->button () == LeftButton)
+    if (e->button () == Qt::LeftButton)
         if (nameT == "timeLineRightTopLabel") {
             leftClick = true;
             leftClickX = e->x ();
@@ -174,7 +177,7 @@ CLabel::mouseReleaseEvent (QMouseEvent * e)
 {
         //cout<<e->x()<<endl;  setFocusPolicy(QWidget::StrongFocus);  qDebug(QString::number(e->x()));
     valueChanged ();
-    if (e->button () == LeftButton)
+    if (e->button () == Qt::LeftButton)
         if (nameT == "timeLineRightTopLabel") {
             leftClick = false;
             /*if(e->x()/8<dad->layerMaxColNum) */

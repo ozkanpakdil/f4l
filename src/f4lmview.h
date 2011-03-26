@@ -25,9 +25,12 @@ email                : ozkanpakdil@users.sourceforge.net
 #include <qlayout.h>
 #include <qsplitter.h>
 #include <qpushbutton.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <qlabel.h>
-#include <qvaluevector.h>
+#include <q3valuevector.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QCloseEvent>
 
 #include "canview.h"
 #include "ccanvas.h"
@@ -65,7 +68,7 @@ public:
     /** Constructor for the view
     * @param pDoc  our document instance that the view represents. Create a document before calling the constructor
     	* or connect an already existing document to a new MDI child widget.*/
-    F4lmView (F4lmDoc * pDoc, QWidget * parent, const char *name, int wflags);
+    F4lmView (F4lmDoc * pDoc, QWidget * parent, const char *name, Qt::WindowFlags wflags);
 
     /** Destructor for the main view */
     ~F4lmView ();
@@ -95,13 +98,13 @@ public:
     int layerNum;
     F4lmApp * dad;
     canview * canvasViewer;
-	CCanvas* mainCanvas;
+    CCanvas* mainCanvas;
 
 protected:
     virtual void closeEvent (QCloseEvent *);
     void mouseMoveEvent (QMouseEvent * e);
     F4lmDoc * doc;
-    QValueVector < canvasBoundaries > *boundaries;
+    Q3ValueVector < canvasBoundaries > *boundaries;
 	
 
 public slots:		// Public slots

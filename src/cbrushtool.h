@@ -18,22 +18,24 @@
 #ifndef CBRUSHTOOL_H
 #define CBRUSHTOOL_H
 
-#include <qcanvas.h>
+#include <q3canvas.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
 /**this is canvas item for brush tool
   *@author Özkan Pakdil
   */
 class F4lmView;
 
-class CCanvasBrushLine:public QCanvasPolygonalItem
+class CCanvasBrushLine:public Q3CanvasPolygonalItem
 {
 public:
-    CCanvasBrushLine (QCanvas * canvas);
+    CCanvasBrushLine (Q3Canvas * canvas);
     ~CCanvasBrushLine();
-    QPointArray polyline;
+    Q3PointArray polyline;
     void moveBy (double dx, double dy);
-    void setControlPoints (QPointArray ctrl, bool close = TRUE);
-    QPointArray areaPoints () const;
+    void setControlPoints (Q3PointArray ctrl, bool close = TRUE);
+    Q3PointArray areaPoints () const;
     void setWidth (int W)
     {
         width = W;

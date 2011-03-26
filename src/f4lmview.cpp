@@ -22,8 +22,13 @@
 #include <qslider.h>
 #include <qpainter.h>
 #include <qimage.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qsizepolicy.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3VBoxLayout>
+#include <QMouseEvent>
+#include <QCloseEvent>
 
 // application specific includes
 #include "f4lmview.h"
@@ -35,7 +40,7 @@
 
 
 
-F4lmView::F4lmView (F4lmDoc * pDoc, QWidget * parent, const char *name, int wflags)
+F4lmView::F4lmView (F4lmDoc * pDoc, QWidget * parent, const char *name, Qt::WindowFlags wflags)
     :QWidget (parent, name, wflags) {
     setName ("F4lmView");
     dad = (F4lmApp *) parentWidget ()->parent ()->parent ();
@@ -46,7 +51,7 @@ F4lmView::F4lmView (F4lmDoc * pDoc, QWidget * parent, const char *name, int wfla
     defSceneHeight = 440;
     defSceneWidth = 550;
     defSceneRect = QRect (600, 600, defSceneWidth, defSceneHeight);
-    QVBoxLayout * topLayout = new QVBoxLayout (this);
+    Q3VBoxLayout * topLayout = new Q3VBoxLayout (this);
     
 	CLayer * layer1 = new CLayer (this, "layer 1");
     mainCanvas = new CCanvas (this, "mc");
@@ -139,13 +144,13 @@ void F4lmView::slotInsertFrame (int row, int col) {
 CListViewItem *tmpListViewItem=(CListViewItem*)dad->tl->timeLineListbox->selectedItem();
 int animX=dad->tl->layerFrames->at(tmpListViewItem->m_Row-1)->frames->last ()->tableItemNo;
 int z=-1*tmpListViewItem->m_Row;
-	QCanvasItemList l=mainCanvas->allItems();
-	 for (QCanvasItemList::Iterator it = l.begin (); it != l.end ();++it) {
+	Q3CanvasItemList l=mainCanvas->allItems();
+	 for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it) {
 				 if ((*it)->rtti () == 666 || (*it)->rtti () == 667) {		//if user clicked on def. scene rect. then dont select it.
                         continue;
 		}
 		switch((*it)->rtti()){
-			case QCanvasItem::Rtti_Ellipse:
+			case Q3CanvasItem::Rtti_Ellipse:
 			{
 				CCanvasEllipse *oval=(CCanvasEllipse*)(*it);
 				if(oval->Row==z){
@@ -153,35 +158,35 @@ int z=-1*tmpListViewItem->m_Row;
 				}
 			}
 			break;
-			case QCanvasItem::Rtti_Line:
+			case Q3CanvasItem::Rtti_Line:
 			{
 				CCanvasLine *line=(CCanvasLine*)(*it);
 				if(line->Row==z)
 					line->animationX=animX;
 			}
 			break;
-			case QCanvasItem::Rtti_Polygon:
+			case Q3CanvasItem::Rtti_Polygon:
 				
 			break;
-			case QCanvasItem::Rtti_PolygonalItem:
+			case Q3CanvasItem::Rtti_PolygonalItem:
 			{
 				CPencilLine *poly=(CPencilLine*)(*it);
 				if(poly->Row==z)
 					poly->animationX=animX;
 			}
 			break;
-			case QCanvasItem::Rtti_Rectangle:
+			case Q3CanvasItem::Rtti_Rectangle:
 			{
 				CCanvasRectangle *rect=(CCanvasRectangle*)(*it);
 				if(rect->Row==z)
 					rect->animationX=animX;
 			}
 			break;
-			case QCanvasItem::Rtti_Spline:
+			case Q3CanvasItem::Rtti_Spline:
 			break;
-			case QCanvasItem::Rtti_Sprite:
+			case Q3CanvasItem::Rtti_Sprite:
 			break;
-			case QCanvasItem::Rtti_Text:
+			case Q3CanvasItem::Rtti_Text:
 			{
 				CCanvasText *text=(CCanvasText*)(*it);
 				if(text->Row==z)
@@ -210,13 +215,13 @@ void F4lmView::slotShowCanvas (int row, int col) {
         canvasViewer->setCanvas (curCan);
 */
 	CCanvasItem *Object;
-	QCanvasItemList l=mainCanvas->allItems();
-	 for (QCanvasItemList::Iterator it = l.begin (); it != l.end ();++it) {
+	Q3CanvasItemList l=mainCanvas->allItems();
+	 for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it) {
 		 if ((*it)->rtti () == 666 || (*it)->rtti () == 667) {		//if user clicked on def. scene rect. then dont select it.
                         continue;
 		}
 		switch((*it)->rtti()){
-			case QCanvasItem::Rtti_Ellipse:
+			case Q3CanvasItem::Rtti_Ellipse:
 			{
 				CCanvasEllipse *oval=(CCanvasEllipse*)(*it);
 				if(oval->animationX>=col){
@@ -229,7 +234,7 @@ void F4lmView::slotShowCanvas (int row, int col) {
 				}
 			}
 			break;
-			case QCanvasItem::Rtti_Line:
+			case Q3CanvasItem::Rtti_Line:
 			{	CCanvasLine *line=(CCanvasLine*)(*it);
 				if(line->animationX>=col)
 					line->show();
@@ -237,10 +242,10 @@ void F4lmView::slotShowCanvas (int row, int col) {
 					line->hide();
 			}
 			break;
-			case QCanvasItem::Rtti_Polygon:
+			case Q3CanvasItem::Rtti_Polygon:
 				
 			break;
-			case QCanvasItem::Rtti_PolygonalItem:
+			case Q3CanvasItem::Rtti_PolygonalItem:
 			{
 				CPencilLine *poly=(CPencilLine*)(*it);
 				if(poly->animationX>=col)
@@ -249,7 +254,7 @@ void F4lmView::slotShowCanvas (int row, int col) {
 					poly->hide();
 			}
 			break;
-			case QCanvasItem::Rtti_Rectangle:
+			case Q3CanvasItem::Rtti_Rectangle:
 			{
 				CCanvasRectangle *rect=(CCanvasRectangle*)(*it);
 				if(rect->animationX>=col)
@@ -258,11 +263,11 @@ void F4lmView::slotShowCanvas (int row, int col) {
 					rect->hide();
 			}
 			break;
-			case QCanvasItem::Rtti_Spline:
+			case Q3CanvasItem::Rtti_Spline:
 			break;
-			case QCanvasItem::Rtti_Sprite:
+			case Q3CanvasItem::Rtti_Sprite:
 			break;
-			case QCanvasItem::Rtti_Text:
+			case Q3CanvasItem::Rtti_Text:
 			{
 				CCanvasText *text=(CCanvasText*)(*it);
 				if(text->animationX>=col)

@@ -12,23 +12,31 @@
 #include "f4lm.h"
 #include <qcolordialog.h>
 #include <qimage.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QShowEvent>
+#include <QHideEvent>
+#include <QMouseEvent>
+#include <QLabel>
+#include <Q3Frame>
 #include "cursor/eye_dropper_tool.xpm"
+#include <QDesktopWidget>
 
-CColorPopup::CColorPopup (QWidget * parent, const char *name, WFlags f)
+CColorPopup::CColorPopup (QWidget * parent, const char *name, Qt::WFlags f)
 :QWidget (parent, name, f)
 {
     colorShower = new QLabel (this, "color shower");
-    colorShower->setFrameStyle (QFrame::WinPanel | QFrame::Sunken);
+    colorShower->setFrameStyle (Q3Frame::WinPanel | Q3Frame::Sunken);
     colorShower->setLineWidth (2);
     colorShower->setMidLineWidth (1);
     colorShower->resize (37, 20);
     colorShower->setPaletteBackgroundColor (QColor (0, 0, 0));
     colorShower->move (5, 2);
-    colorName = new QTextEdit (this);
+    colorName = new Q3TextEdit (this);
     colorName->resize (55, 20);
     colorName->move (50, 2);
-    colorName->setHScrollBarMode (QScrollView::AlwaysOff);
-    colorName->setVScrollBarMode (QScrollView::AlwaysOff);
+    colorName->setHScrollBarMode (Q3ScrollView::AlwaysOff);
+    colorName->setVScrollBarMode (Q3ScrollView::AlwaysOff);
     
 	QFont f1 ("Times", 8, QFont::Light);
     colorName->setFont (f1);
@@ -40,7 +48,7 @@ CColorPopup::CColorPopup (QWidget * parent, const char *name, WFlags f)
 	QToolButton * colordialog =new CToolButton (this, tr ("Open color dialog"));
     colordialog->move (180, 3);
     colordialog->resize (20, 20);
-    colordialog->setIconSet (QIconSet (QPixmap ("colordialogBut.png")));
+    colordialog->setIconSet (QIcon (QPixmap ("colordialogBut.png")));
     colordialog->setTextLabel (trUtf8 ("Open Color Dialog"));
     connect (colordialog, SIGNAL (clicked ()), this,SLOT (slotColordialog ()));
 

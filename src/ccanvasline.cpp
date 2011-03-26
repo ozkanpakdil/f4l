@@ -11,8 +11,8 @@
 //
 #include "ccanvasline.h"
 
-CCanvasLine::CCanvasLine(QCanvas * canvas)
- : QCanvasLine(canvas)
+CCanvasLine::CCanvasLine(Q3Canvas * canvas)
+ : Q3CanvasLine(canvas)
 {
 
 }

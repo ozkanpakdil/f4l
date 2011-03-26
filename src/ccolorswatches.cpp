@@ -19,6 +19,8 @@
 #include "ccolorswatches.h"
 #include "f4lm.h"
 #include <qlayout.h>
+//Added by qt3to4:
+#include <QPixmap>
 
 #include "cursor/eye_dropper_tool.xpm"
 

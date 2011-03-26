@@ -19,6 +19,9 @@
 #define CSMALCOLORBOXES_H
 
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QEvent>
+#include <QMouseEvent>
 
 class CColorSwatches;
 /// this is using for that small boxes in color swatches.

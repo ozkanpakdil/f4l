@@ -20,8 +20,10 @@
 #include "f4lmview.h"
 #include <qpainter.h>
 #include <qstring.h>
+//Added by qt3to4:
+#include <Q3PointArray>
 
-CCanvasBrushLine::CCanvasBrushLine (QCanvas * canvas):QCanvasPolygonalItem (canvas)
+CCanvasBrushLine::CCanvasBrushLine (Q3Canvas * canvas):Q3CanvasPolygonalItem (canvas)
 {
         ///default width is 10
     dad = (F4lmView *) canvas->parent ();
@@ -42,20 +44,20 @@ void CCanvasBrushLine::drawShape (QPainter & p)
         //p.drawPoints(bez);
 }
 
-QPointArray CCanvasBrushLine::areaPoints () const
+Q3PointArray CCanvasBrushLine::areaPoints () const
 {
     return polyline;
 }
 
-void CCanvasBrushLine::setControlPoints (QPointArray clo, bool cl){
+void CCanvasBrushLine::setControlPoints (Q3PointArray clo, bool cl){
     width = dad->dad->properties->brushProperties->textBox1->text ().toInt ();
-    polyline = QPointArray (clo.size ());
+    polyline = Q3PointArray (clo.size ());
     polyline = clo;
 }
 
 void CCanvasBrushLine::moveBy (double dx, double dy){
         //removeFromChunks();
-    QCanvasItem::moveBy (dx, dy);
+    Q3CanvasItem::moveBy (dx, dy);
     int tx, ty;
     for (unsigned int i = 0; i < polyline.size (); i++) {
         tx = (int) polyline[i].x () + (int) dx;

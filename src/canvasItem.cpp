@@ -17,20 +17,23 @@
 
 #include "canvasItem.h"
 #include <qpainter.h>
+//Added by qt3to4:
+#include <Q3PtrList>
+#include <Q3PointArray>
 
-CCanvasItem::CCanvasItem (QCanvas * canvas):QCanvasItem (canvas)
+CCanvasItem::CCanvasItem (Q3Canvas * canvas):Q3CanvasItem (canvas)
 {}
 
 CCanvasItem::~CCanvasItem ()
 {}
 
-CPenTool::CPenTool (QCanvas * canvas):QCanvasPolygonalItem (canvas)
+CPenTool::CPenTool (Q3Canvas * canvas):Q3CanvasPolygonalItem (canvas)
 {
-    pPolylineTemp = new QPtrList < QPoint >;
+    pPolylineTemp = new Q3PtrList < QPoint >;
         //polyline=QPointArray(1000);
-    part1 = QPointArray (4);
-    part2 = QPointArray (4);
-    part3 = QPointArray (4);
+    part1 = Q3PointArray (4);
+    part2 = Q3PointArray (4);
+    part3 = Q3PointArray (4);
         //bez=QPointArray(20);
 }
 
@@ -75,22 +78,22 @@ void CPenTool::drawShape (QPainter & p)
         //}
 }
 
-QPointArray CPenTool::areaPoints () const
+Q3PointArray CPenTool::areaPoints () const
 {
     return polyline;
 }
 
-void CPenTool::setControlPoints (QPointArray clo, bool cl)
+void CPenTool::setControlPoints (Q3PointArray clo, bool cl)
 {
-    bez = QPointArray (clo.size ());
+    bez = Q3PointArray (clo.size ());
     bez = clo;
         //polyline=ctrl;
-    QPtrList < QPointArray > segs;
+    Q3PtrList < Q3PointArray > segs;
     segs.setAutoDelete (TRUE);
     int
     n = 0;
     for (int i = 0; i < (int) bez.count () - 1; i += 3) {
-        QPointArray
+        Q3PointArray
         ctrl (4);
         ctrl[0] = bez[i + 0];
         ctrl[1] = bez[i + 1];
@@ -99,28 +102,28 @@ void CPenTool::setControlPoints (QPointArray clo, bool cl)
             ctrl[3] = bez[(i + 3) % (int) bez.count ()];
         else
             ctrl[3] = bez[i + 3];
-        QPointArray *
-        seg = new QPointArray (ctrl.cubicBezier ());
+        Q3PointArray *
+        seg = new Q3PointArray (ctrl.cubicBezier ());
         n += seg->count () - 1;
         segs.append (seg);
     }
-    QPointArray
+    Q3PointArray
     p (n + 1);
     n = 0;
-    for (QPointArray * seg = segs.first (); seg; seg = segs.next ()) {
+    for (Q3PointArray * seg = segs.first (); seg; seg = segs.next ()) {
         for (int i = 0; i < (int) seg->count () - 1; i++)
             p[n++] = seg->point (i);
         if (n == (int) p.count () - 1)
             p[n] = seg->point (seg->count () - 1);
     }
         //QCanvasPolygon::setPoints(p);
-    polyline = QPointArray (p.size ());
+    polyline = Q3PointArray (p.size ());
     polyline = p;
 }
 
 void CPenTool::moveBy (double dx, double dy)
 {
-    QCanvasPolygonalItem::moveBy (dx, dy);
+    Q3CanvasPolygonalItem::moveBy (dx, dy);
     for (int i = 0; i < polyline.size (); i++) {
         polyline[i].setX (polyline[i].x () + (int) dx);
         polyline[i].setY (polyline[i].y () + (int) dy);

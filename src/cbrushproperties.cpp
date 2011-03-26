@@ -18,11 +18,13 @@
 #include "cbrushproperties.h"
 #include <qlayout.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
 
 CBrushProperties::CBrushProperties (QWidget * parent, const char *name):
         QWidget (parent, name)
 {
-    QHBoxLayout *topLayout = new QHBoxLayout (this);
+    Q3HBoxLayout *topLayout = new Q3HBoxLayout (this);
     QLabel *title = new QLabel (this);
     title->setText ("Brush width :");
     topLayout->addWidget (title);

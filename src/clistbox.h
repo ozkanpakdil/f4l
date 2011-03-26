@@ -19,8 +19,15 @@
 #ifndef CLISTVIEW_H
 #define CLISTVIEW_H
 
-#include <qlistview.h>
-#include <qiconset.h>
+#include <q3listview.h>
+#include <qicon.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QDragMoveEvent>
+#include <QDragLeaveEvent>
+#include <QDropEvent>
+#include <QDragEnterEvent>
+#include <QPixmap>
 
 class CTimeLine;
 
@@ -29,12 +36,12 @@ class CTimeLine;
 ///   islemleri yapilacak.
 ///   english: with this class listbox fonts will be configured and pixmaps will be set.
 ///   @author özkan pakdil
-class CListView:public QListView
+class CListView:public Q3ListView
 {
 
     Q_OBJECT
 public:
-    CListView (QWidget * parent = 0, const char *name = 0, WFlags f =0);
+    CListView (QWidget * parent = 0, const char *name = 0, Qt::WFlags f =0);
     ~CListView ();
     CTimeLine * dad;
 
@@ -49,11 +56,11 @@ protected:
     void contentsMouseReleaseEvent (QMouseEvent * e);
     QPoint presspos;
     bool mousePressed;
-    QIconSet _0;
-    QIconSet _1;
-    QIconSet _2;
-    QIconSet _3;
-    QIconSet _4;
+    QIcon _0;
+    QIcon _1;
+    QIcon _2;
+    QIcon _3;
+    QIcon _4;
     QPixmap pencil;
 };
 

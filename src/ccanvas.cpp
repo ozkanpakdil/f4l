@@ -19,7 +19,7 @@
 #include "ccanvas.h"
 
 CCanvas::CCanvas (QWidget * parent, const char *name)
-:QCanvas (parent, name)
+:Q3Canvas (parent, name)
 {
     setDoubleBuffering (true);
 }

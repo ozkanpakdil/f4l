@@ -18,8 +18,8 @@
 #include "ctableitem.h"
 #include <qpainter.h>
 
-CTableItem::CTableItem (QTable * parent, EditType et, const QString & text):
-        QTableItem (parent, et, text)
+CTableItem::CTableItem (Q3Table * parent, EditType et, const QString & text):
+        Q3TableItem (parent, et, text)
 {
     layerChooser = filled = empty_keyframe = ready = keyFrameEnd =
                     keyFrameStart = false;
@@ -31,7 +31,7 @@ CTableItem::~CTableItem ()
 
 void CTableItem::paint (QPainter * p, const QColorGroup & cg, const QRect & cr,bool selected)
 {
-    QTableItem::paint (p, cg, cr, selected);
+    Q3TableItem::paint (p, cg, cr, selected);
         // QColorGroup g( cg );
         //p->setBrush(QColor(255,0,0));
         //      p->setBackgroundColor(QColor(255,0,0));

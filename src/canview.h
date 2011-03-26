@@ -18,8 +18,16 @@
 #ifndef CANVIEW_H
 #define CANVIEW_H
 
-#include <qcanvas.h>
+#include <q3canvas.h>
 #include <qcursor.h>
+//Added by qt3to4:
+#include <QEvent>
+#include <QDropEvent>
+#include <Q3PointArray>
+#include <QMouseEvent>
+#include <QKeyEvent>
+#include <QPaintEvent>
+#include <Q3PtrList>
 
 class F4lmView;
 class CPencilLine;
@@ -40,16 +48,16 @@ class CCanvasRectangle;
   english: this class makes aour scene for drawing. mouse events and other stuff will be here.
   */
 
-class canview:public QCanvasView
+class canview:public Q3CanvasView
 {
 	Q_OBJECT 
 public:
-    canview (QCanvas * canvas, QWidget * parent, const char *name = 0);
+    canview (Q3Canvas * canvas, QWidget * parent, const char *name = 0);
     ~canview ();
     F4lmView *dad;
     bool butPos;
     int movX, cenX, movY, cenY;
-    QCanvasPolygonalItem *currentObj;
+    Q3CanvasPolygonalItem *currentObj;
     CCanvasLine *line;
     QFont textFont;
     CCanvasText *text;
@@ -57,18 +65,18 @@ public:
     CCanvasEllipse *oval;
     CCanvasRectangle *rect;
     CSceneRect *selectionRect;
-    QCanvasRectangle *selectedRect;
-    QCanvasSpline *spline;
+    Q3CanvasRectangle *selectedRect;
+    Q3CanvasSpline *spline;
     CPencilLine *pencilline;
     CCanvasBrushLine *brushline;
-    QPtrList < QPoint > pPolylineTemp;
+    Q3PtrList < QPoint > pPolylineTemp;
     CPenTool *penShape;
 
-    QCanvasItemList mulSelect;
-    QCanvasItemList mulSelectedRects;
+    Q3CanvasItemList mulSelect;
+    Q3CanvasItemList mulSelectedRects;
 
-    QPointArray polyline;
-    QPointArray spolyline;
+    Q3PointArray polyline;
+    Q3PointArray spolyline;
 
     QCursor handCursor;
     QCursor handCursorDown;
@@ -87,7 +95,7 @@ public:
     QCursor eraserCursor;
 
     double z;			//used for z axis for canvas item
-    QCanvasItem *moving;
+    Q3CanvasItem *moving;
     QPoint moving_start;
 
 protected:

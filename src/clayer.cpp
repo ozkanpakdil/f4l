@@ -18,11 +18,13 @@
 #include "clayer.h"
 #include "ccanvas.h"
 #include "canvasItem.h"
+//Added by qt3to4:
+#include <Q3PtrList>
 
 CLayer::CLayer(QWidget *parent, const char *name) : QObject (parent, name)
 {
-    pCanvasItemList = new QPtrList < CCanvasItem >;
-    pCanvasList = new QPtrList < CCanvas >;
+    pCanvasItemList = new Q3PtrList < CCanvasItem >;
+    pCanvasList = new Q3PtrList < CCanvas >;
 }
 
 CLayer::~CLayer ()

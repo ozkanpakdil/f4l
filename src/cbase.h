@@ -18,16 +18,16 @@
 #ifndef CBASE_H
 #define CBASE_H
 
-#include <qscrollview.h>
+#include <q3scrollview.h>
 
 /**this is the class used for scroll jobs
 tabletopRightLable
   *@author özkan pakdil
   */
-class CBase:public QScrollView
+class CBase:public Q3ScrollView
 {
 public:
-    CBase (QWidget * parent = 0, const char *name = 0, WFlags f = 0);
+    CBase (QWidget * parent = 0, const char *name = 0, Qt::WFlags f = 0);
     ~CBase ();
 };
 

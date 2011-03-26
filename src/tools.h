@@ -12,19 +12,24 @@
 #include <qvariant.h>
 #include <qwidget.h>
 #include <qpixmap.h>
-#include <qtextedit.h>
+#include <q3textedit.h>
 #include <qtoolbutton.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <QEvent>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 /*
     *@author özkan pakdil
   turkish: bu class sagdaki tools dockable windowunu olusturmak. buttonlar bu class da tasiniyor.
   english: for making tools window.
 */
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
-class QButtonGroup;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
+class Q3ButtonGroup;
 class CColorSwatches;
 class CToolButton;
 class CColorPopup;
@@ -35,15 +40,15 @@ class F4lmApp;
 class CTools:public QWidget
 {
 Q_OBJECT public:
-    CTools (QWidget * parent, const char *name = 0, WFlags fl =
+    CTools (QWidget * parent, const char *name = 0, Qt::WFlags fl =
             0, F4lmApp * realp = 0);
     ~CTools ();
 
     F4lmApp *dad;
-    QButtonGroup *ToolsButtonGroup;
-    QButtonGroup *ToolsViewGroup;
-    QButtonGroup *ToolsColorsGroup;
-    QButtonGroup *ToolsOptionsGroup;
+    Q3ButtonGroup *ToolsButtonGroup;
+    Q3ButtonGroup *ToolsViewGroup;
+    Q3ButtonGroup *ToolsColorsGroup;
+    Q3ButtonGroup *ToolsOptionsGroup;
 
     CToolButton * ArrowTool;
     CToolButton *SubSelectionTool;
@@ -69,7 +74,7 @@ Q_OBJECT public:
     CColorSwatches * s;
     QPixmap strokpix;
     QPixmap fillpix;
-    QTextEdit * colorName;
+    Q3TextEdit * colorName;
     QLabel * colorShower;
 
 public slots:			// Public slots
