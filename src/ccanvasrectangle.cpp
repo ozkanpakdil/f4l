@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2005 by Özkan Pakdil                                    *
+ *   Copyright (C) 2005 by ï¿½zkan Pakdil                                    *
  *                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -20,7 +20,7 @@
 #include "ccanvasrectangle.h"
 
 CCanvasRectangle::CCanvasRectangle(int x, int y, int width, int height, Q3Canvas * canvas)
- : Q3CanvasRectangle(x, y, width, height, canvas)
+ : QGraphicsRectItem(x, y, width, height, canvas)
 {
 }
 

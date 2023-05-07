@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2005 by Özkan Pakdil                                    *
+ *   Copyright (C) 2005 by Ã¶zkan Pakdil                                    *
  *                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -20,12 +20,12 @@
 #ifndef CCANVASELLIPSE_H
 #define CCANVASELLIPSE_H
 
-#include <q3canvas.h>
+#include <QGraphicsScene>
 
 /**
 for knowing canvas object row and column number.
 
-@author Ökan Pakdil
+@author ï¿½kan Pakdil
 */
 class CCanvasEllipse:public Q3CanvasEllipse{
 public:

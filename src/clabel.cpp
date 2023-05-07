@@ -2,7 +2,7 @@
               clabel.cpp  -  description
                  -------------------
     begin                : Mon Jun 9 2003
-    copyright            : (C) 2003 by özkan pakdil
+    copyright            : (C) 2003 by ï¿½zkan pakdil
     email                : ozkanpakdil@users.sourceforge.net
  ***************************************************************************/
 
@@ -50,7 +50,7 @@ CLabel::CLabel (QWidget * parent, const char *name)
         //f.setWeight(20);
         //      timeLineRightTopLabel->setAutoResize(true);
         //setFont( f );
-        //setGlobalMouseTracking(TRUE);
+        //setGlobalMouseTracking(true);
         // setMouseTracking(true);
 
         //setBaseSize(50,50);

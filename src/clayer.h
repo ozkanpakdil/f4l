@@ -2,7 +2,7 @@
               clayer.h  -  description
                  -------------------
     begin                : Mon Jun 30 2003
-    copyright            : (C) 2003 by özkan pakdil
+    copyright            : (C) 2003 by Ã¶zkan pakdil
     email                : ozkanpakdil@users.sourceforge.net
  ***************************************************************************/
 
@@ -19,14 +19,14 @@
 #define CLAYER_H
 
 #include <qwidget.h>
-#include <q3canvas.h>
+#include <QGraphicsScene>
 #include <q3ptrlist.h>
 
 class CCanvas;
 class CCanvasItem;
 
 /**this is the layer class for objects and canvases
-  *@author özkan pakdil
+  *@author Ã¶zkan pakdil
   */
 class CLayer:public QObject
 {
@@ -35,10 +35,10 @@ public:
     CLayer (QWidget * parent = 0, const char *name = 0);
     ~CLayer ();
 
-    Q3PtrList < CCanvasItem > *pCanvasItemList;
+    QList < CCanvasItem > *pCanvasItemList;
 		
 		///this list holds all canvases
-    Q3PtrList < CCanvas > *pCanvasList;
+    QList < CCanvas > *pCanvasList;
 };
 
 #endif

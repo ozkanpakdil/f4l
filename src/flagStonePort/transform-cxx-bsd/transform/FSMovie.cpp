@@ -189,7 +189,7 @@ namespace transform
         strncpy(signature, aSignature, 3);
     }
 
-    FSMovie::FSMovie(const char* fileName) throw (FSFileOpenException, FSAccessException, FSFormatException) : 
+    FSMovie::FSMovie(const char* fileName): 
         identifier(0),
         version(Transform::VERSION),
         frameSize(),
@@ -199,7 +199,7 @@ namespace transform
         decodeFromFile(fileName);
     }
     
-    FSMovie::FSMovie(const byte* data, size_t numberOfBytes) throw (FSFormatException) :
+    FSMovie::FSMovie(const byte* data, size_t numberOfBytes):
         identifier(0),
         version(Transform::VERSION),
         frameSize(),
@@ -349,7 +349,7 @@ namespace transform
         return numberOfFrames;
     }
 
-    void FSMovie::decodeFromFile(const char* fileName) throw (FSFileOpenException, FSAccessException, FSFormatException)
+    void FSMovie::decodeFromFile(const char* fileName)
     {
         size_t size = 0;
         byte* bytes = dataFromFile(fileName, size);
@@ -379,7 +379,7 @@ namespace transform
         }
     }
     
-    void FSMovie::decodeFromData(const byte* bytes, size_t numberOfBytes) throw (FSFormatException)
+    void FSMovie::decodeFromData(const byte* bytes, size_t numberOfBytes)
     {
         if ((bytes[0] == 'F' || bytes[0] == 'C') && bytes[1] == 'W' && bytes[2] == 'S' != true)
             throw FSFormatException("Not Flash format");
@@ -399,7 +399,7 @@ namespace transform
         _decode(bytes, numberOfBytes, listener);
     }
 
-    void FSMovie::encodeToFile(const char* fileName) throw (FSFileOpenException, FSAccessException, FSValidationException)
+    void FSMovie::encodeToFile(const char* fileName)
     {
         FILE* output = 0;
         byte* buffer = 0;
@@ -448,7 +448,7 @@ namespace transform
         delete [] buffer;
     }
     
-    byte* FSMovie::encode(size_t& length) throw (FSValidationException)
+    byte* FSMovie::encode(size_t& length)
     {
         return _encode(length);
     }

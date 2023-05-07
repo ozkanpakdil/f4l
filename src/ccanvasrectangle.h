@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2005 by Özkan Pakdil                                    *
+ *   Copyright (C) 2005 by Ã¶zkan Pakdil                                    *
  *                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -20,14 +20,14 @@
 #ifndef CCANVASRECTANGLE_H
 #define CCANVASRECTANGLE_H
 
-#include <q3canvas.h>
+#include <QGraphicsScene>
 
 /**
 same with other canvas items
 
-@author Ökan Pakdil
+@author ï¿½kan Pakdil
 */
-class CCanvasRectangle : public Q3CanvasRectangle
+class CCanvasRectangle : public QGraphicsRectItem
 {
 public:
     CCanvasRectangle(int x, int y, int width, int height, Q3Canvas * canvas);

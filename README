@@ -1,3 +1,7 @@
-f4l git repo
+not compiling.
 
-I will try to develop f4l with qt4
+# how to build
+```
+qmake
+make
+```

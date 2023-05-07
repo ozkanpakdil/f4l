@@ -2,7 +2,7 @@
               cbrushtool.cpp  -  description
                  -------------------
     begin                : Wed Sep 17 2003
-    copyright            : (C) 2003 by Özkan Pakdil
+    copyright            : (C) 2003 by Ã¶zkan Pakdil
     email                : ozkanpakdil@users.sourceforge.net
  ***************************************************************************/
 
@@ -21,9 +21,9 @@
 #include <qpainter.h>
 #include <qstring.h>
 //Added by qt3to4:
-#include <Q3PointArray>
+#include <QPolygon>
 
-CCanvasBrushLine::CCanvasBrushLine (Q3Canvas * canvas):Q3CanvasPolygonalItem (canvas)
+CCanvasBrushLine::CCanvasBrushLine (Q3Canvas * canvas):QGraphicsPolygonItem (canvas)
 {
         ///default width is 10
     dad = (F4lmView *) canvas->parent ();
@@ -44,20 +44,20 @@ void CCanvasBrushLine::drawShape (QPainter & p)
         //p.drawPoints(bez);
 }
 
-Q3PointArray CCanvasBrushLine::areaPoints () const
+QPolygon CCanvasBrushLine::areaPoints () const
 {
     return polyline;
 }
 
-void CCanvasBrushLine::setControlPoints (Q3PointArray clo, bool cl){
+void CCanvasBrushLine::setControlPoints (QPolygon clo, bool cl){
     width = dad->dad->properties->brushProperties->textBox1->text ().toInt ();
-    polyline = Q3PointArray (clo.size ());
+    polyline = QPolygon (clo.size ());
     polyline = clo;
 }
 
 void CCanvasBrushLine::moveBy (double dx, double dy){
         //removeFromChunks();
-    Q3CanvasItem::moveBy (dx, dy);
+    QGraphicsItem::moveBy (dx, dy);
     int tx, ty;
     for (unsigned int i = 0; i < polyline.size (); i++) {
         tx = (int) polyline[i].x () + (int) dx;

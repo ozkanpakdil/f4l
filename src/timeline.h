@@ -15,13 +15,13 @@
 #include <Q3GridLayout>
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
-#include <Q3PtrList>
+#include <QList>
 #include "table.h"
 #include "clistbox.h"
 #include "clabel.h"
 
 /*
-    *@author özkan pakdil
+    *@author Ã¶zkan pakdil
     turkish: bu class in olus sebebi alt da bulunan table listbox gibi widget larin dogru sekilde gosterimini
     saglamak. time line da gorulen button lar burda yazilacak.
     english: buttons at time line will be written here.
@@ -66,11 +66,11 @@ public:
     CTimeLineDataStructure (int isim)
     {
         name = isim;
-        frames = new Q3PtrList < CTimeLineNodes >;
+        frames = new QList < CTimeLineNodes >;
         frames->setAutoDelete (true);
     }
     int name;
-    Q3PtrList < CTimeLineNodes > *frames;
+    QList < CTimeLineNodes > *frames;
 
 };
 
@@ -106,7 +106,7 @@ public:
     CBase * baseforleftlabel;
     F4lmApp * dad;
 //benimde f4lde bir sat?r?m var..Cem
-    Q3PtrList < CTimeLineDataStructure > *layerFrames;
+    QList < CTimeLineDataStructure > *layerFrames;
     bool adding;			//if adding happened this is true otherwise false
     int layerNum;		//think this as a row number
     int tableColNum;		//table width or table column number

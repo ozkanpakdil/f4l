@@ -216,7 +216,7 @@ public:
             @throws FSAccessException - if an I/O error occurs.
             @throws FSFormatException - if the Flash file does not start with a valid signature.
             */
-        FSMovie(const char* fileName) throw (FSFileOpenException, FSAccessException, FSFormatException);
+        FSMovie(const char* fileName);
         
         /** 
          * Constructs an FSMovie object with the specified signature, version, bounding rectangle, 
@@ -243,7 +243,7 @@ public:
             @param numberOfBytes the length of the array of bytes.
             @throws FSFormatException if the Flash file does not start with a valid signature.
             */
-        FSMovie(const byte* data, size_t numberOfBytes) throw (FSFormatException);
+        FSMovie(const byte* data, size_t numberOfBytes);
 
         FSMovie(const FSMovie& rhs);
 
@@ -376,7 +376,7 @@ public:
             @throws FSAccessException - if an I/O error occurs.
             @throws FSFormatException if the Flash file does not start with a valid signature.
             */
-        void decodeFromFile(const char* fileName) throw (FSFileOpenException, FSAccessException, FSFormatException);
+        void decodeFromFile(const char* fileName);
     
         void decodeFromFile(const char* fileName, FSMovieListener* listener);
     
@@ -390,7 +390,7 @@ public:
             @param numberOfBytes the length of the array of bytes.
             @throws FSFormatException if the Flash file does not start with a valid signature.
             */
-        void decodeFromData(const byte* bytes, size_t numberOfBytes) throw (FSFormatException);
+        void decodeFromData(const byte* bytes, size_t numberOfBytes);
     
         void decodeFromData(const byte* bytes, size_t numberOfBytes, FSMovieListener* listener);
 
@@ -402,16 +402,17 @@ public:
             @throws FSFileOpenException - if the file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for reading.
             @throws FSAccessException - if an I/O error occurs.
             */
-        void encodeToFile(const char* fileName) throw (FSFileOpenException, FSAccessException, FSValidationException);
+        void encodeToFile(const char* fileName);
     
         void encodeToFile(const char* fileName, FSMovieListener* listener);
     
-        /** Returns the encoded representation of the array of objects that this Movie contains. The movie object does not own the binary data so it should be explicitly deleted.
+        /** Returns the encoded representation of the array of objects that this Movie contains. 
+        The movie object does not own the binary data so it should be explicitly deleted.
     
             @param length a pointer which will contains the length of the encoded data.
             @return the array of bytes representing the encoded objects.
             */
-        byte* encode(size_t& length) throw (FSValidationException);
+        byte* encode(size_t& length);
 
         byte* encode(FSMovieListener* listener);
 

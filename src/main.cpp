@@ -2,7 +2,7 @@
               main.cpp  -  description
                  -------------------
     begin                : Sat Jun  7 02:29:46 EEST 2003
-    copyright            : (C) 2003 by �zkan pakdil
+    copyright            : (C) 2003 by özkan pakdil
     email                : ozkanpakdil@users.sourceforge.net
  ***************************************************************************/
 

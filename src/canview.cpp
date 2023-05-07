@@ -1,20 +1,3 @@
-/***************************************************************************
-              canview.cpp  -  description
-                 -------------------
-    begin                : Thu May 15 2003
-    copyright            : (C) 2003 by root
-    email                : ozkanpakdil@users.sourceforge.net
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-
 #include "canview.h"
 #include "f4lmview.h"
 #include "f4lm.h"
@@ -36,7 +19,7 @@
 #include <qpainter.h>
 #include <q3popupmenu.h>
 //Added by qt3to4:
-#include <Q3PointArray>
+#include <QPolygon>
 #include <QDropEvent>
 #include <QPaintEvent>
 #include <QPixmap>
@@ -128,7 +111,7 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
         if (selectionRect == NULL)
         {
           QPoint p = inverseWorldMatrix ().map (e->pos ());
-          Q3CanvasItemList l = canvas ()->collisions (p);
+          QGraphicsItemList l = canvas ()->collisions (p);
           //          qDebug("cou: %d",l.count());
 
           if (l.count () <= 1)
@@ -144,7 +127,7 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
             selectionRect->setZ (z);
             selectionRect->show ();
           }
-          for (Q3CanvasItemList::Iterator it = l.begin ();
+          for (QGraphicsItemList::Iterator it = l.begin ();
                it != l.end (); ++it)
           {
             if ((*it)->rtti () == 666 || (*it)->rtti () == 667)
@@ -201,7 +184,7 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
           penShape->setBrush (dad->defObjCOLOR);
           penShape->setZ (z);
           penShape->show ();
-          spolyline = Q3PointArray (12);
+          spolyline = QPolygon (12);
           //spolyline[0]=spolyline[1]=spolyline[2]=spolyline[3]=/*contentsToViewport*/(e->pos());
           for (int i = 0; i < 12; i++)
             spolyline[i] = e->pos ();
@@ -331,8 +314,8 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
     case 11:		//FreeTransformTool;
       {
         QPoint p = inverseWorldMatrix ().map (e->pos ());
-        Q3CanvasItemList l = canvas ()->collisions (p);
-        for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();
+        QGraphicsItemList l = canvas ()->collisions (p);
+        for (QGraphicsItemList::Iterator it = l.begin (); it != l.end ();
              ++it)
         {
           if ((*it)->rtti () == 666)
@@ -361,10 +344,10 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
     case 14:		//PaintBucketTool;
       {
         QPoint p = inverseWorldMatrix ().map (e->pos ());
-        Q3CanvasItemList l = canvas ()->collisions (p);
+        QGraphicsItemList l = canvas ()->collisions (p);
         //qDebug("eleman sayisi %d",l.count());
         if(l.count()<=1) break;
-        for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end (); ++it)
+        for (QGraphicsItemList::Iterator it = l.begin (); it != l.end (); ++it)
         {
           //if(it==NULL) break;
           if ((*it)->rtti () == 666)
@@ -375,17 +358,17 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
           //qDebug( "bu objeye tikladin %d ",moving->rtti() );
         }
         if (moving)
-          if (moving->rtti () == Q3CanvasItem::Rtti_Ellipse ||
-              moving->rtti () == Q3CanvasItem::Rtti_Line ||
-              moving->rtti () == Q3CanvasItem::Rtti_Polygon ||
-              moving->rtti () == Q3CanvasItem::Rtti_PolygonalItem ||
-              moving->rtti () == Q3CanvasItem::Rtti_Rectangle ||
-              moving->rtti () == Q3CanvasItem::Rtti_Spline)
+          if (moving->rtti () == QGraphicsItem::Rtti_Ellipse ||
+              moving->rtti () == QGraphicsItem::Rtti_Line ||
+              moving->rtti () == QGraphicsItem::Rtti_Polygon ||
+              moving->rtti () == QGraphicsItem::Rtti_PolygonalItem ||
+              moving->rtti () == QGraphicsItem::Rtti_Rectangle ||
+              moving->rtti () == QGraphicsItem::Rtti_Spline)
           {
-            ((Q3CanvasPolygonalItem *) moving)->setPen (dad->defObjCOLOR);
-            ((Q3CanvasPolygonalItem *) moving)->setBrush (dad->defObjCOLOR);
+            ((QGraphicsPolygonItem *) moving)->setPen (dad->defObjCOLOR);
+            ((QGraphicsPolygonItem *) moving)->setBrush (dad->defObjCOLOR);
           }
-        if (moving->rtti () == Q3CanvasItem::Rtti_Text)
+        if (moving->rtti () == QGraphicsItem::Rtti_Text)
         {
           ((CCanvasText *) moving)->setColor (dad->defObjCOLOR);
 	  //qDebug(((CCanvasText *) moving)->text ());
@@ -411,8 +394,8 @@ void canview::contentsMousePressEvent (QMouseEvent * e)
         //              QKeyEvent *s=new QKeyEvent(QEvent::KeyPress,Qt::Key_Delete,0,0);
         //              keyPressEvent(s);
         QPoint p = inverseWorldMatrix ().map (e->pos ());
-        Q3CanvasItemList l = canvas ()->collisions (p);
-        for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();
+        QGraphicsItemList l = canvas ()->collisions (p);
+        for (QGraphicsItemList::Iterator it = l.begin (); it != l.end ();
              ++it)
         {
           if ((*it)->rtti () == 666)
@@ -528,8 +511,8 @@ void canview::contentsMouseMoveEvent (QMouseEvent * e)
         {
           canvas ()->setChanged (QRect (contentsX (), contentsY (), contentsWidth (), contentsHeight ()));	//////////this line killing the performance!!!!!!!but clearing the scene :)
           QPoint p = inverseWorldMatrix ().map (e->pos ());
-          Q3CanvasItemList l = mulSelect;
-          for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
+          QGraphicsItemList l = mulSelect;
+          for (QGraphicsItemList::Iterator it = l.begin (); it != l.end ();++it)
           {
             if ((*it)->rtti () == 666 || (*it)->rtti () == 667)
             {		//if user clicked on def. scene rect. then dont select it.
@@ -541,7 +524,7 @@ void canview::contentsMouseMoveEvent (QMouseEvent * e)
           }
           //moving_start = p;
           l = mulSelectedRects;
-          for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
+          for (QGraphicsItemList::Iterator it = l.begin (); it != l.end ();++it)
           {
             moving = *it;
             if ((*it)->rtti () == 667)
@@ -675,8 +658,8 @@ void canview::contentsMouseReleaseEvent (QMouseEvent * e)
     {
       /////////////here will be some kind of multiple selection action
       mulSelect = selectionRect->collisions (false);
-      Q3CanvasItemList l = mulSelect;
-      for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end (); ++it)
+      QGraphicsItemList l = mulSelect;
+      for (QGraphicsItemList::Iterator it = l.begin (); it != l.end (); ++it)
       {
         if ((*it)->rtti () == 666)
         {		//if user clicked on def. scene rect. then dont select it.
@@ -695,8 +678,8 @@ void canview::contentsMouseReleaseEvent (QMouseEvent * e)
     }
     else
     {
-      Q3CanvasItemList l = canvas ()->allItems ();
-      for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end (); ++it)
+      QGraphicsItemList l = canvas ()->allItems ();
+      for (QGraphicsItemList::Iterator it = l.begin (); it != l.end (); ++it)
       {
         if ((*it)->rtti () == 667)
         {
@@ -737,7 +720,7 @@ void canview::contentsMouseReleaseEvent (QMouseEvent * e)
     break;
   case 9:			//PencilTool;
     {
-      Q3PointArray tempArr = Q3PointArray (pPolylineTemp.count ());
+      QPolygon tempArr = QPolygon (pPolylineTemp.count ());
       int i = 0;
       for (QPoint * it = pPolylineTemp.first (); it;it = pPolylineTemp.next ())
       {
@@ -751,7 +734,7 @@ void canview::contentsMouseReleaseEvent (QMouseEvent * e)
   case 10:			//BrushTool;
     {
       canvas ()->setAllChanged ();
-      Q3PointArray tempArr = Q3PointArray (pPolylineTemp.count ());
+      QPolygon tempArr = QPolygon (pPolylineTemp.count ());
       int i = 0;
       for (QPoint * it = pPolylineTemp.first (); it;it = pPolylineTemp.next ())
       {
@@ -918,15 +901,15 @@ void canview::contentsMouseDoubleClickEvent (QMouseEvent * e)
   {
     moving = 0;
     QPoint p = inverseWorldMatrix ().map (e->pos ());
-    Q3CanvasItemList l = canvas ()->collisions (p);
-    for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end (); ++it)
+    QGraphicsItemList l = canvas ()->collisions (p);
+    for (QGraphicsItemList::Iterator it = l.begin (); it != l.end (); ++it)
     {
-      if ((*it)->rtti () == Q3CanvasItem::Rtti_Text)
+      if ((*it)->rtti () == QGraphicsItem::Rtti_Text)
       {
         moving = *it;
       }
     }
-    if (moving != NULL && moving->rtti () == Q3CanvasItem::Rtti_Text)
+    if (moving != NULL && moving->rtti () == QGraphicsItem::Rtti_Text)
     {
       //moving->hide();
       text = (CCanvasText *) moving;
@@ -957,8 +940,8 @@ void canview::keyPressEvent (QKeyEvent * e)
   case Qt::Key_Delete:
     if (dad->defObjID)
     {
-      Q3CanvasItemList l = mulSelect;
-      for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
+      QGraphicsItemList l = mulSelect;
+      for (QGraphicsItemList::Iterator it = l.begin (); it != l.end ();++it)
       {
         if ((*it)->rtti () == 666 || (*it)->rtti () == 667)
         {		//if user clicked on def. scene rect. then dont select it.
@@ -970,7 +953,7 @@ void canview::keyPressEvent (QKeyEvent * e)
       }
       //moving_start = p;
       l = mulSelectedRects;
-      for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
+      for (QGraphicsItemList::Iterator it = l.begin (); it != l.end ();++it)
       {
         moving = *it;
         if ((*it)->rtti () == 667)

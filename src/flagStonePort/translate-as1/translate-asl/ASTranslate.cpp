@@ -53,7 +53,7 @@ BOOL APIENTRY DllMain( HANDLE hModule,
     case DLL_PROCESS_DETACH:
         break;
     }
-    return TRUE;
+    return true;
 }
 
 #endif // _WINDLL

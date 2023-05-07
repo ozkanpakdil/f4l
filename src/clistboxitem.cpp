@@ -2,7 +2,7 @@
               clistboxitem.cpp  -  description
                  -------------------
     begin                : Mon Jun 9 2003
-    copyright            : (C) 2003 by özkan pakdil
+    copyright            : (C) 2003 by ï¿½zkan pakdil
     email                : ozkanpakdil@users.sourceforge.net
  ***************************************************************************/
 
@@ -35,7 +35,7 @@ CListViewItem::CListViewItem (Q3ListView * parent, QString label1,
         //listBox()->repaint();
 }
 
-//CListBoxItem::CListBoxItem():QListBoxItem(){setCustomHighlighting( TRUE );}
+//CListBoxItem::CListBoxItem():QListBoxItem(){setCustomHighlighting( true );}
 
 CListViewItem::~CListViewItem ()
 {

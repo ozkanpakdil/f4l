@@ -2,7 +2,7 @@
               clistbox.cpp  -  description
                  -------------------
     begin                : Mon Jun 9 2003
-    copyright            : (C) 2003 by özkan pakdil
+    copyright            : (C) 2003 by ï¿½zkan pakdil
     email                : ozkanpakdil@users.sourceforge.net
  ***************************************************************************/
 
@@ -37,12 +37,12 @@
 CListView::CListView (QWidget * parent, const char *name, Qt::WFlags f)
 :Q3ListView (parent, name, f)
 {
-        //alttaki satir bütün satirin secilmesini sagliyor diger sekilde
+        //alttaki satir bï¿½tï¿½n satirin secilmesini sagliyor diger sekilde
         //sadece ilk kolondaki elemani secer.
     dad = (CTimeLine *) parentWidget ()->parent ()->parent ();
 
         //qDebug(dad->name());
-    setAllColumnsShowFocus (TRUE);
+    setAllColumnsShowFocus (true);
 
     /*QFont fa( "SansSerif", 10, QFont::Normal );
            //f.setPixelSize(12);
@@ -142,7 +142,7 @@ void CListView::contentsMousePressEvent (QMouseEvent * e)
                     ||
                     p.x () < header ()->cellPos (header ()->mapToActual (0))) {
                 presspos = e->pos ();
-                mousePressed = TRUE;
+                mousePressed = true;
             }
 			
             i->setPixmap (2, pencil);

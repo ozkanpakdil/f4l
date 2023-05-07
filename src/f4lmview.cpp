@@ -2,7 +2,7 @@
               f4lmview.cpp  -  description
                  -------------------
     begin                : Sat Jun  7 02:29:46 EEST 2003
-    copyright            : (C) 2003 by özkan pakdil
+    copyright            : (C) 2003 by ï¿½zkan pakdil
     email                : ozkanpakdil@users.sourceforge.net
  ***************************************************************************/
 
@@ -144,13 +144,13 @@ void F4lmView::slotInsertFrame (int row, int col) {
 CListViewItem *tmpListViewItem=(CListViewItem*)dad->tl->timeLineListbox->selectedItem();
 int animX=dad->tl->layerFrames->at(tmpListViewItem->m_Row-1)->frames->last ()->tableItemNo;
 int z=-1*tmpListViewItem->m_Row;
-	Q3CanvasItemList l=mainCanvas->allItems();
-	 for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it) {
+	QGraphicsItemList l=mainCanvas->allItems();
+	 for (QGraphicsItemList::Iterator it = l.begin (); it != l.end ();++it) {
 				 if ((*it)->rtti () == 666 || (*it)->rtti () == 667) {		//if user clicked on def. scene rect. then dont select it.
                         continue;
 		}
 		switch((*it)->rtti()){
-			case Q3CanvasItem::Rtti_Ellipse:
+			case QGraphicsItem::Rtti_Ellipse:
 			{
 				CCanvasEllipse *oval=(CCanvasEllipse*)(*it);
 				if(oval->Row==z){
@@ -158,35 +158,35 @@ int z=-1*tmpListViewItem->m_Row;
 				}
 			}
 			break;
-			case Q3CanvasItem::Rtti_Line:
+			case QGraphicsItem::Rtti_Line:
 			{
 				CCanvasLine *line=(CCanvasLine*)(*it);
 				if(line->Row==z)
 					line->animationX=animX;
 			}
 			break;
-			case Q3CanvasItem::Rtti_Polygon:
+			case QGraphicsItem::Rtti_Polygon:
 				
 			break;
-			case Q3CanvasItem::Rtti_PolygonalItem:
+			case QGraphicsItem::Rtti_PolygonalItem:
 			{
 				CPencilLine *poly=(CPencilLine*)(*it);
 				if(poly->Row==z)
 					poly->animationX=animX;
 			}
 			break;
-			case Q3CanvasItem::Rtti_Rectangle:
+			case QGraphicsItem::Rtti_Rectangle:
 			{
 				CCanvasRectangle *rect=(CCanvasRectangle*)(*it);
 				if(rect->Row==z)
 					rect->animationX=animX;
 			}
 			break;
-			case Q3CanvasItem::Rtti_Spline:
+			case QGraphicsItem::Rtti_Spline:
 			break;
-			case Q3CanvasItem::Rtti_Sprite:
+			case QGraphicsItem::Rtti_Sprite:
 			break;
-			case Q3CanvasItem::Rtti_Text:
+			case QGraphicsItem::Rtti_Text:
 			{
 				CCanvasText *text=(CCanvasText*)(*it);
 				if(text->Row==z)
@@ -198,7 +198,7 @@ int z=-1*tmpListViewItem->m_Row;
 }
 
 void F4lmView::slotShowCanvas (int row, int col) {
-////////burada matrixdeki bölgede secili yerin show edilmesi saglanacak.
+////////burada matrixdeki bï¿½lgede secili yerin show edilmesi saglanacak.
 /////// bu durumda insert frame de matrix degisiklikleri yapilacak.
     //qDebug("row:%d col:%d listNum:%d",row,col);
 /*    CLayer * l;
@@ -215,13 +215,13 @@ void F4lmView::slotShowCanvas (int row, int col) {
         canvasViewer->setCanvas (curCan);
 */
 	CCanvasItem *Object;
-	Q3CanvasItemList l=mainCanvas->allItems();
-	 for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it) {
+	QGraphicsItemList l=mainCanvas->allItems();
+	 for (QGraphicsItemList::Iterator it = l.begin (); it != l.end ();++it) {
 		 if ((*it)->rtti () == 666 || (*it)->rtti () == 667) {		//if user clicked on def. scene rect. then dont select it.
                         continue;
 		}
 		switch((*it)->rtti()){
-			case Q3CanvasItem::Rtti_Ellipse:
+			case QGraphicsItem::Rtti_Ellipse:
 			{
 				CCanvasEllipse *oval=(CCanvasEllipse*)(*it);
 				if(oval->animationX>=col){
@@ -234,7 +234,7 @@ void F4lmView::slotShowCanvas (int row, int col) {
 				}
 			}
 			break;
-			case Q3CanvasItem::Rtti_Line:
+			case QGraphicsItem::Rtti_Line:
 			{	CCanvasLine *line=(CCanvasLine*)(*it);
 				if(line->animationX>=col)
 					line->show();
@@ -242,10 +242,10 @@ void F4lmView::slotShowCanvas (int row, int col) {
 					line->hide();
 			}
 			break;
-			case Q3CanvasItem::Rtti_Polygon:
+			case QGraphicsItem::Rtti_Polygon:
 				
 			break;
-			case Q3CanvasItem::Rtti_PolygonalItem:
+			case QGraphicsItem::Rtti_PolygonalItem:
 			{
 				CPencilLine *poly=(CPencilLine*)(*it);
 				if(poly->animationX>=col)
@@ -254,7 +254,7 @@ void F4lmView::slotShowCanvas (int row, int col) {
 					poly->hide();
 			}
 			break;
-			case Q3CanvasItem::Rtti_Rectangle:
+			case QGraphicsItem::Rtti_Rectangle:
 			{
 				CCanvasRectangle *rect=(CCanvasRectangle*)(*it);
 				if(rect->animationX>=col)
@@ -263,11 +263,11 @@ void F4lmView::slotShowCanvas (int row, int col) {
 					rect->hide();
 			}
 			break;
-			case Q3CanvasItem::Rtti_Spline:
+			case QGraphicsItem::Rtti_Spline:
 			break;
-			case Q3CanvasItem::Rtti_Sprite:
+			case QGraphicsItem::Rtti_Sprite:
 			break;
-			case Q3CanvasItem::Rtti_Text:
+			case QGraphicsItem::Rtti_Text:
 			{
 				CCanvasText *text=(CCanvasText*)(*it);
 				if(text->animationX>=col)

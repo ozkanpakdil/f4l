@@ -2,7 +2,7 @@
               clistboxitem.h  -  description
                  -------------------
     begin                : Mon Jun 9 2003
-    copyright            : (C) 2003 by özkan pakdil
+    copyright            : (C) 2003 by ï¿½zkan pakdil
     email                : ozkanpakdil@users.sourceforge.net
  ***************************************************************************/
 
@@ -22,7 +22,7 @@
 #include <q3listview.h>
 
 /** used for showing pixmaps in items inside timeLine's listview.
-  *@author özkan pakdil
+  *@author ï¿½zkan pakdil
   */
 class CListViewItem:public /*QObject, */ Q3ListViewItem
 {
@@ -42,7 +42,7 @@ public:
     ~CListViewItem ();
 
     void setup (){
-        setExpandable (TRUE);
+        setExpandable (true);
         setHeight (20);
                 //qDebug("%d",height());
                 //QListViewItem::setup();

@@ -1,39 +1,21 @@
-/***************************************************************************
-              ccanvas.h  -  description
-                 -------------------
-    begin                : Tue Jul 3 2003
-    copyright            : (C) 2003 by özkan pakdil
-    email                : ozkanpakdil@users.sourceforge.net
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-
 #include "canvasItem.h"
 #include <qpainter.h>
-//Added by qt3to4:
-#include <Q3PtrList>
-#include <Q3PointArray>
+#include <QList>
+#include <QPolygon>
 
-CCanvasItem::CCanvasItem (Q3Canvas * canvas):Q3CanvasItem (canvas)
+CCanvasItem::CCanvasItem (QGraphicsItem * canvas):QGraphicsItem (canvas)
 {}
 
 CCanvasItem::~CCanvasItem ()
 {}
 
-CPenTool::CPenTool (Q3Canvas * canvas):Q3CanvasPolygonalItem (canvas)
+CPenTool::CPenTool (QGraphicsItem * canvas):QGraphicsPolygonItem (canvas)
 {
-    pPolylineTemp = new Q3PtrList < QPoint >;
+    pPolylineTemp = new QList < QPoint >;
         //polyline=QPointArray(1000);
-    part1 = Q3PointArray (4);
-    part2 = Q3PointArray (4);
-    part3 = Q3PointArray (4);
+    part1 = QPolygon (4);
+    part2 = QPolygon (4);
+    part3 = QPolygon (4);
         //bez=QPointArray(20);
 }
 
@@ -78,22 +60,22 @@ void CPenTool::drawShape (QPainter & p)
         //}
 }
 
-Q3PointArray CPenTool::areaPoints () const
+QPolygon CPenTool::areaPoints () const
 {
     return polyline;
 }
 
-void CPenTool::setControlPoints (Q3PointArray clo, bool cl)
+void CPenTool::setControlPoints (QPolygon clo, bool cl)
 {
-    bez = Q3PointArray (clo.size ());
+    bez = QPolygon (clo.size ());
     bez = clo;
         //polyline=ctrl;
-    Q3PtrList < Q3PointArray > segs;
-    segs.setAutoDelete (TRUE);
+    QList < QPolygon > segs;
+    segs.setAutoDelete (true);
     int
     n = 0;
     for (int i = 0; i < (int) bez.count () - 1; i += 3) {
-        Q3PointArray
+        QPolygon
         ctrl (4);
         ctrl[0] = bez[i + 0];
         ctrl[1] = bez[i + 1];
@@ -102,36 +84,30 @@ void CPenTool::setControlPoints (Q3PointArray clo, bool cl)
             ctrl[3] = bez[(i + 3) % (int) bez.count ()];
         else
             ctrl[3] = bez[i + 3];
-        Q3PointArray *
-        seg = new Q3PointArray (ctrl.cubicBezier ());
+        QPolygon *
+        seg = new QPolygon (ctrl.cubicBezier ());
         n += seg->count () - 1;
         segs.append (seg);
     }
-    Q3PointArray
+    QPolygon
     p (n + 1);
     n = 0;
-    for (Q3PointArray * seg = segs.first (); seg; seg = segs.next ()) {
+    for (QPolygon * seg = segs.first (); seg; seg = segs.next ()) {
         for (int i = 0; i < (int) seg->count () - 1; i++)
             p[n++] = seg->point (i);
         if (n == (int) p.count () - 1)
             p[n] = seg->point (seg->count () - 1);
     }
         //QCanvasPolygon::setPoints(p);
-    polyline = Q3PointArray (p.size ());
+    polyline = QPolygon (p.size ());
     polyline = p;
 }
 
 void CPenTool::moveBy (double dx, double dy)
 {
-    Q3CanvasPolygonalItem::moveBy (dx, dy);
+    QGraphicsPolygonItem::moveBy (dx, dy);
     for (int i = 0; i < polyline.size (); i++) {
         polyline[i].setX (polyline[i].x () + (int) dx);
         polyline[i].setY (polyline[i].y () + (int) dy);
     }
 }
-
-/*CPixmap::CPixmap (QCanvas * canvas):QCanvasPixmap (canvas)
-{
- 
-}
-*/

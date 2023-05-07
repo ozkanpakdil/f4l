@@ -2,7 +2,7 @@
               cbrushtool.h  -  description
                  -------------------
     begin                : Wed Sep 17 2003
-    copyright            : (C) 2003 by Özkan Pakdil
+    copyright            : (C) 2003 by Ã¶zkan Pakdil
     email                : ozkanpakdil@users.sourceforge.net
  ***************************************************************************/
 
@@ -18,24 +18,24 @@
 #ifndef CBRUSHTOOL_H
 #define CBRUSHTOOL_H
 
-#include <q3canvas.h>
+#include <QGraphicsScene>
 //Added by qt3to4:
-#include <Q3PointArray>
+#include <QPolygon>
 
 /**this is canvas item for brush tool
-  *@author Özkan Pakdil
+  *@author Ã¶zkan Pakdil
   */
 class F4lmView;
 
-class CCanvasBrushLine:public Q3CanvasPolygonalItem
+class CCanvasBrushLine:public QGraphicsPolygonItem
 {
 public:
     CCanvasBrushLine (Q3Canvas * canvas);
     ~CCanvasBrushLine();
-    Q3PointArray polyline;
+    QPolygon polyline;
     void moveBy (double dx, double dy);
-    void setControlPoints (Q3PointArray ctrl, bool close = TRUE);
-    Q3PointArray areaPoints () const;
+    void setControlPoints (QPolygon ctrl, bool close = true);
+    QPolygon areaPoints () const;
     void setWidth (int W)
     {
         width = W;

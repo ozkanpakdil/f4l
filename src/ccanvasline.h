@@ -2,12 +2,12 @@
 #define CCANVASLINE_H
 
 #include <qobject.h>
-#include <q3canvas.h>
+#include <QGraphicsScene>
 
 /**
 using for setVisible(FALSE) in some frame object should be unvisible.
 
-@author Özkan Pakdil
+@author Ã¶zkan Pakdil
 */
 class CCanvasLine:public Q3CanvasLine 
 {

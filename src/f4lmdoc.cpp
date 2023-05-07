@@ -22,7 +22,7 @@
 #include <qmessagebox.h>
 #include <q3filedialog.h>
 //Added by qt3to4:
-#include <Q3PtrList>
+#include <QList>
 #include <iostream>
 #include <q3filedialog.h>
 #include <q3process.h> // reading ttf files
@@ -45,8 +45,8 @@ using namespace std;
 F4lmDoc::F4lmDoc ()
 {
   setName ("F4lmDoc");
-  pViewList = new Q3PtrList < F4lmView >;
-  pLayerList = new Q3PtrList < CLayer >;
+  pViewList = new QList < F4lmView >;
+  pLayerList = new QList < CLayer >;
   pViewList->setAutoDelete (false);
 }
 
@@ -169,7 +169,7 @@ bool F4lmDoc::saveDocument (const QString & filename, const char *format /*=0*/ 
 {
   F4lmView* tmp= (F4lmView* )pViewList->at(0);
   canview *viving=tmp->canvasViewer;
-  Q3CanvasItemList canvItmList;
+  QGraphicsItemList canvItmList;
 
 
   /*QCanvasItemList l = canvas ()->allItems ();
@@ -300,8 +300,8 @@ void F4lmDoc::slotfileExportMovie()
 
   for(int i=0;i<=view->dad->tl->layerMaxColNum;i++)
   {
-    Q3CanvasItemList l=view->mainCanvas->allItems();
-    for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it)
+    QGraphicsItemList l=view->mainCanvas->allItems();
+    for (QGraphicsItemList::Iterator it = l.begin (); it != l.end ();++it)
     {
       if ((*it)->rtti () == 666 || (*it)->rtti () == 667)
       {		//should not be output object types.
@@ -309,7 +309,7 @@ void F4lmDoc::slotfileExportMovie()
       }
       switch((*it)->rtti())
       {
-      case Q3CanvasItem::Rtti_Ellipse:
+      case QGraphicsItem::Rtti_Ellipse:
         {
           CCanvasEllipse *oval=(CCanvasEllipse*)(*it);
           if(oval->animationX>=i)continue;
@@ -339,7 +339,7 @@ void F4lmDoc::slotfileExportMovie()
           movie.add(new FSShowFrame());
         }
         break;
-      case Q3CanvasItem::Rtti_Line:
+      case QGraphicsItem::Rtti_Line:
         {
           CCanvasLine *line=(CCanvasLine*)(*it);
           //qDebug("frame %d",i);
@@ -379,16 +379,16 @@ void F4lmDoc::slotfileExportMovie()
           movie.add(new FSShowFrame());
         }
         break;
-      case Q3CanvasItem::Rtti_Polygon:
+      case QGraphicsItem::Rtti_Polygon:
 
         break;
-      case Q3CanvasItem::Rtti_PolygonalItem:
+      case QGraphicsItem::Rtti_PolygonalItem:
         {
           CPencilLine *poly=(CPencilLine*)(*it);
         }
 
         break;
-      case Q3CanvasItem::Rtti_Rectangle:
+      case QGraphicsItem::Rtti_Rectangle:
         {
           CCanvasRectangle *rect=(CCanvasRectangle*)(*it);
           //qDebug("rect animx : %d colon numaramiz: %d",rect->animationX,i);
@@ -453,9 +453,9 @@ void F4lmDoc::slotfileExportMovie()
           movie.add(new FSShowFrame());
         }
         break;
-      case Q3CanvasItem::Rtti_Spline:
+      case QGraphicsItem::Rtti_Spline:
         break;
-      case Q3CanvasItem::Rtti_Sprite:
+      case QGraphicsItem::Rtti_Sprite:
         {
           Q3CanvasSprite *sprite=(Q3CanvasSprite*)(*it);
           QByteArray ba;
@@ -521,7 +521,7 @@ if ((status = imageGenerator->setImage((const unsigned char*)buffer.buffer().dat
 
         }
         break;
-      case Q3CanvasItem::Rtti_Text:
+      case QGraphicsItem::Rtti_Text:
         {
           CCanvasText *canvasText=(CCanvasText*)(*it);
           if(canvasText->animationX>=i)continue;
@@ -541,7 +541,7 @@ if ((status = imageGenerator->setImage((const unsigned char*)buffer.buffer().dat
             qDebug("process could not started.");
             return;
           }
-          while(proc->isRunning()==TRUE){qApp->processEvents();}
+          while(proc->isRunning()==true){qApp->processEvents();}
           /*QByteArray bufByte=proc->readStdout();
           if(!proc->normalExit())
           	qDebug("%d",proc->exitStatus ());

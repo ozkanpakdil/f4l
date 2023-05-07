@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2005 by Özkan Pakdil                                    *
+ *   Copyright (C) 2005 by Ã¶zkan Pakdil                                    *
  *                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -20,12 +20,12 @@
 #ifndef CCANVASTEXT_H
 #define CCANVASTEXT_H
 
-#include <q3canvas.h>
+#include <QGraphicsScene>
 
 /**
 will be used for f4l canvas object. with this we gonna set Z from Layers and set Time from columns of timelinetable.
 
-@author Ökan Pakdil
+@author ï¿½kan Pakdil
 */
 class CCanvasText : public Q3CanvasText
 {

@@ -2516,7 +2516,7 @@ void F4lmApp::slotfileImport ()
   CFilePreview * p = new CFilePreview;
   Q3FileDialog * fd = new Q3FileDialog (this);
 
-  fd->setContentsPreviewEnabled (TRUE);
+  fd->setContentsPreviewEnabled (true);
   fd->setContentsPreview (p, p);
   fd->setPreviewMode (Q3FileDialog::Contents);
 

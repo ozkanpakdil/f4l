@@ -11,5 +11,5 @@ warn_on \
 qt \
 thread
 TEMPLATE = subdirs
-QT += qt3support
+QT += widgets
 LIBS= -lpthread -lrt -lz

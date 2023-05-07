@@ -18,16 +18,16 @@
 #ifndef CANVIEW_H
 #define CANVIEW_H
 
-#include <q3canvas.h>
+#include <QGraphicsScene>
 #include <qcursor.h>
 //Added by qt3to4:
 #include <QEvent>
 #include <QDropEvent>
-#include <Q3PointArray>
+#include <QPolygon>
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QPaintEvent>
-#include <Q3PtrList>
+#include <QList>
 
 class F4lmView;
 class CPencilLine;
@@ -57,7 +57,7 @@ public:
     F4lmView *dad;
     bool butPos;
     int movX, cenX, movY, cenY;
-    Q3CanvasPolygonalItem *currentObj;
+    QGraphicsPolygonItem *currentObj;
     CCanvasLine *line;
     QFont textFont;
     CCanvasText *text;
@@ -65,18 +65,18 @@ public:
     CCanvasEllipse *oval;
     CCanvasRectangle *rect;
     CSceneRect *selectionRect;
-    Q3CanvasRectangle *selectedRect;
+    QGraphicsRectItem *selectedRect;
     Q3CanvasSpline *spline;
     CPencilLine *pencilline;
     CCanvasBrushLine *brushline;
-    Q3PtrList < QPoint > pPolylineTemp;
+    QList < QPoint > pPolylineTemp;
     CPenTool *penShape;
 
-    Q3CanvasItemList mulSelect;
-    Q3CanvasItemList mulSelectedRects;
+    QGraphicsItemList mulSelect;
+    QGraphicsItemList mulSelectedRects;
 
-    Q3PointArray polyline;
-    Q3PointArray spolyline;
+    QPolygon polyline;
+    QPolygon spolyline;
 
     QCursor handCursor;
     QCursor handCursorDown;
@@ -95,7 +95,7 @@ public:
     QCursor eraserCursor;
 
     double z;			//used for z axis for canvas item
-    Q3CanvasItem *moving;
+    QGraphicsItem *moving;
     QPoint moving_start;
 
 protected:

@@ -2,7 +2,7 @@
               clayer.cpp  -  description
                  -------------------
     begin                : Mon Jun 30 2003
-    copyright            : (C) 2003 by özkan pakdil
+    copyright            : (C) 2003 by Ã¶zkan pakdil
     email                : ozkanpakdil@users.sourceforge.net
  ***************************************************************************/
 
@@ -19,12 +19,12 @@
 #include "ccanvas.h"
 #include "canvasItem.h"
 //Added by qt3to4:
-#include <Q3PtrList>
+#include <QList>
 
 CLayer::CLayer(QWidget *parent, const char *name) : QObject (parent, name)
 {
-    pCanvasItemList = new Q3PtrList < CCanvasItem >;
-    pCanvasList = new Q3PtrList < CCanvas >;
+    pCanvasItemList = new QList < CCanvasItem >;
+    pCanvasList = new QList < CCanvas >;
 }
 
 CLayer::~CLayer ()

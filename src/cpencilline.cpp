@@ -1,13 +1,13 @@
 #include "cpencilline.h"
 #include <qpainter.h>
 //Added by qt3to4:
-#include <Q3PointArray>
-#include <Q3PtrList>
+#include <QPolygon>
+#include <QList>
 
 CPencilLine::CPencilLine (Q3Canvas * canvas)
-:Q3CanvasPolygonalItem (canvas)
+:QGraphicsPolygonItem (canvas)
 {
-    pPolylineTemp = new Q3PtrList < QPoint >;
+    pPolylineTemp = new QList < QPoint >;
         //polyline=QPointArray(1000);
 }
 
@@ -15,7 +15,7 @@ void CPencilLine::drawShape (QPainter & p){
     p.drawPolyline (polyline);
 }
 
-Q3PointArray CPencilLine::areaPoints () const
+QPolygon CPencilLine::areaPoints () const
 {
     /* ((CPencilLine*)this)->polyline=QPointArray(pPolylineTemp->count());
        for(int i=0;i<pPolylineTemp->count();i++)
@@ -24,14 +24,14 @@ Q3PointArray CPencilLine::areaPoints () const
     return polyline;
 }
 
-void CPencilLine::setControlPoints (Q3PointArray clo, bool cl){
-    polyline = Q3PointArray (clo.size ());
+void CPencilLine::setControlPoints (QPolygon clo, bool cl){
+    polyline = QPolygon (clo.size ());
     polyline = clo;
 }
 
 void CPencilLine::moveBy (double dx, double dy){
         //removeFromChunks();
-    Q3CanvasPolygonalItem::moveBy (dx, dy);
+    QGraphicsPolygonItem::moveBy (dx, dy);
     for (unsigned int i = 0; i < polyline.size (); i++) {
         polyline[i].setX (polyline[i].x () + (int) dx);
         polyline[i].setY (polyline[i].y () + (int) dy);

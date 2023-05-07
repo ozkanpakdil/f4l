@@ -2,7 +2,7 @@
               ccanvas.h  -  description
                  -------------------
     begin                : Thu Jul 3 2003
-    copyright            : (C) 2003 by özkan pakdil
+    copyright            : (C) 2003 by Ã¶zkan pakdil
     email                : ozkanpakdil@users.sourceforge.net
  ***************************************************************************/
 
@@ -19,10 +19,10 @@
 #define CCANVAS_H
 
 #include <qwidget.h>
-#include <q3canvas.h>
+#include <QGraphicsScene>
 
 /**we may or will need some other functionality from canvas class
-  *@author özkan pakdil
+  *@author Ã¶zkan pakdil
   */
 class CCanvas:public Q3Canvas
 {

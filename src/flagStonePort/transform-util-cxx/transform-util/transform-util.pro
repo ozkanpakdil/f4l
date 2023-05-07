@@ -23,4 +23,4 @@ SOURCES += FSCodec.cpp \
            FSTextConstructor.cpp \
            FSTransformUtil.cpp 
 #The following line was inserted by qt3to4
-QT +=  qt3support 
+QT +=  widgets 

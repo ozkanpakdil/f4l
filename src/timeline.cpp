@@ -2,7 +2,7 @@
 ** 
 **
 ** Created: Mon Jun 9 05:33:27 2003
-**     copyright            : (C) 2003 by özkan pakdil
+**     copyright            : (C) 2003 by Ã¶zkan pakdil
 **    email                : ozkanpakdil@users.sourceforge.net
 **
 ** 
@@ -42,7 +42,7 @@
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <QPixmap>
-#include <Q3PtrList>
+#include <QList>
 #include <Q3VBoxLayout>
 #include <QDebug>
 #include <iostream>
@@ -67,7 +67,7 @@ using namespace std;
 CTimeLine::CTimeLine (QWidget * parent, const char *name, bool modal,Qt::WFlags fl)
         :QWidget (parent, name)
 {
-    layerFrames = new Q3PtrList < CTimeLineDataStructure >;
+    layerFrames = new QList < CTimeLineDataStructure >;
     CTimeLineDataStructure * node = new CTimeLineDataStructure (1);
     CTimeLineNodes * tabnode = new CTimeLineNodes (1);
     node->frames->append (tabnode);
@@ -536,13 +536,13 @@ void CTimeLine::tableRefresh ()
 	int animX=dad->tl->layerFrames->at(tmpListViewItem->m_Row-1)->frames->last ()->tableItemNo;
 	int z=-1*tmpListViewItem->m_Row;
 
-        Q3CanvasItemList l=dad->slotCurrentView()->mainCanvas->allItems();
-            for (Q3CanvasItemList::Iterator it = l.begin (); it != l.end ();++it) {
+        QGraphicsItemList l=dad->slotCurrentView()->mainCanvas->allItems();
+            for (QGraphicsItemList::Iterator it = l.begin (); it != l.end ();++it) {
                 if ((*it)->rtti () == 666 || (*it)->rtti () == 667) {		//if user clicked on def. scene rect. then dont select it.
                     continue;
                 }
                 switch((*it)->rtti()){
-                case Q3CanvasItem::Rtti_Ellipse:
+                case QGraphicsItem::Rtti_Ellipse:
                     {
                         CCanvasEllipse *oval=(CCanvasEllipse*)(*it);
                         if(oval->Row==z){
@@ -550,35 +550,35 @@ void CTimeLine::tableRefresh ()
                         }
                     }
                     break;
-                case Q3CanvasItem::Rtti_Line:
+                case QGraphicsItem::Rtti_Line:
                     {
                         CCanvasLine *line=(CCanvasLine*)(*it);
                         if(line->Row==z)
                             layerChanged=true;
                     }
                     break;
-                case Q3CanvasItem::Rtti_Polygon:
+                case QGraphicsItem::Rtti_Polygon:
 
                     break;
-                case Q3CanvasItem::Rtti_PolygonalItem:
+                case QGraphicsItem::Rtti_PolygonalItem:
                     {
                         CPencilLine *poly=(CPencilLine*)(*it);
                         if(poly->Row==z)
                             layerChanged=true;
                     }
                     break;
-                case Q3CanvasItem::Rtti_Rectangle:
+                case QGraphicsItem::Rtti_Rectangle:
                     {
                         CCanvasRectangle *rect=(CCanvasRectangle*)(*it);
                         if(rect->Row==z)
                             layerChanged=true;
                     }
                     break;
-                case Q3CanvasItem::Rtti_Spline:
+                case QGraphicsItem::Rtti_Spline:
                     break;
-                case Q3CanvasItem::Rtti_Sprite:
+                case QGraphicsItem::Rtti_Sprite:
                     break;
-                case Q3CanvasItem::Rtti_Text:
+                case QGraphicsItem::Rtti_Text:
                     {
                         CCanvasText *text=(CCanvasText*)(*it);
                         if(text->Row==z)

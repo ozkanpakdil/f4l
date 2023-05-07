@@ -28,7 +28,7 @@
 #include <qstring.h>
 #include <q3tl.h>
 //Added by qt3to4:
-#include <Q3PtrList>
+#include <QList>
 #include "clayer.h"
 
 // forward declaration of the F4lm classes
@@ -123,7 +123,7 @@ public:
 
   /** returns the title of the document */
   const QString & title () const;
-  Q3PtrList < CLayer > *pLayerList;
+  QList < CLayer > *pLayerList;
 Q3Process *proc;
 QStringList procOut;
 
@@ -145,7 +145,7 @@ private:
   QString m_filename;
 
   /** the list of the views currently connected to the document */
-  Q3PtrList < F4lmView > *pViewList;
+  QList < F4lmView > *pViewList;
 
 };
 #endif // F4LMDOC_H
